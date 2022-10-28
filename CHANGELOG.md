@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-10-28)
+### Feature
+* Init release ([`7db2f08`](https://github.com/JesseMaitland/psenv/commit/7db2f0898e8d6744fed47232a8fca4de55d0a345))
+
 ## v0.1.0 (2022-10-28)
 ### Feature
 * Init comit ([`41b887f`](https://github.com/JesseMaitland/psenv/commit/41b887faa945d76d8bf2514e5b174f39ad6d3eaf))
