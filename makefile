@@ -42,3 +42,7 @@ test:     ## Run project tests using pytest
 qa:       ## Run both linter and pytest together
 	make test
 	make lint
+
+.PHONY: install-dev
+install-dev:
+	pip install -e ".[dev]"

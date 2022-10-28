@@ -21,11 +21,3 @@ class ParameterStore:
     @staticmethod
     def parse_params_to_key_value_pairs(params: Dict[str, str]) -> Dict[str, str]:
         return {key.split("/")[-1]: value for key, value in params.items()}
-
-
-if __name__ == "__main__":
-    import pprint
-    pss = ParameterStore(path="/services/bi-data-pipelines")
-    params = pss.get_parameters_by_path()
-    results = pss.parse_params_to_key_value_pairs(params)
-    pprint.pprint(results)
