@@ -16,3 +16,14 @@ class ParameterStore:
     @staticmethod
     def parse_params_to_key_value_pairs(params: Dict[str, str]) -> Dict[str, str]:
         return {key.split("/")[-1]: value for key, value in params.items()}
+
+    def push_to_parameter_store(self, params: Dict[str, str], overwrite: bool = False) -> None:
+        for key, value in params.items():
+            name = f"{self.path}/{key}"
+            response = self.ssm_client.put_parameter(
+                Name=name,
+                Value=value,
+                Type="SecureString",
+                Overwrite=overwrite
+            )
+            print(f"Posted {name} -- version {response['Version']}")

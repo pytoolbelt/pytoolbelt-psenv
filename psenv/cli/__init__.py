@@ -1,5 +1,4 @@
-from argparse import ArgumentParser, RawTextHelpFormatter, SUPPRESS
-
+from argparse import ArgumentParser
 from . import version, fetch, push, init, show
 
 
@@ -20,10 +19,13 @@ def parse_args():
 
     fetch_parser = sub_parsers.add_parser("fetch")
     fetch_parser.add_argument("-m", "--method", choices=["overwrite", "update"], default="overwrite")
-    fetch_parser.add_argument("-e", "--environment", required=True)
     fetch_parser.set_defaults(func=fetch.fetch_entrypoint)
 
     push_parser = sub_parsers.add_parser("push")
     push_parser.set_defaults(func=push.push_entrypoint)
+
+    # adding the environment flag to necessary commands
+    for p in fetch_parser, push_parser:
+        p.add_argument("-e", "--environment", required=True)
 
     return parser.parse_args()

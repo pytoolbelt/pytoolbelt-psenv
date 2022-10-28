@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Dict, List
+from dotenv import dotenv_values
 
 
 class EnvFile:
@@ -24,10 +25,21 @@ class EnvFile:
         keys = self._get_sorted_keys(params)
 
         with self.path.open("w+") as env:
-            for key in keys:
+            ref_prefix = ""
+            for i, key in enumerate(keys):
+
+                current_prefix = key.split("_")[0]
+                if current_prefix != ref_prefix and i > 0:
+                    ref_prefix = current_prefix
+                    env.write("\n")
+                    env.write(f"# ----------------------------{current_prefix}------------------------------------ #\n")
+
                 value = params[key]
                 line = f"{key}={value}"
                 env.write(f"{line}\n")
 
     def _update_env(self, params: Dict[str, str]) -> None:
-        pass
+        current_values = dotenv_values(self.path)
+        current_values.update(**params)
+        self._overwrite_env(current_values)
+
