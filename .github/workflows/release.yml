@@ -29,7 +29,7 @@ jobs:
         run: make install-dev
 
       - name: Run Black Linter
-        run: make lint
+        run: make check-format
 
       - name: Run Pytest
         run: make test
