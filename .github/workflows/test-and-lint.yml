@@ -1,0 +1,28 @@
+name: Test and Lint psenv
+
+on:
+  workflow_call:
+
+jobs:
+  test-and-lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10.5
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.5'
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Install psenv and development dependencies
+        run: make install-dev
+
+      - name: Run Black Linter
+        run: make lint
+
+      - name: Run Pytest
+        run: make test

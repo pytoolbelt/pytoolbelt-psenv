@@ -1,0 +1,31 @@
+import boto3
+from typing import Dict
+
+
+class ParameterStore:
+
+    def __init__(self, path: str) -> None:
+        self.path = path
+        self.ssm_client = boto3.client("ssm")
+
+    def get_parameters_by_path(self) -> Dict[str, str]:
+
+        response = self.ssm_client.get_parameters_by_path(
+            Path=self.path,
+            Recursive=True,
+            WithDecryption=True
+        )
+
+        return {p["Name"].upper(): p["Value"] for p in response["Parameters"] if "\n" not in p["Value"]}
+
+    @staticmethod
+    def parse_params_to_key_value_pairs(params: Dict[str, str]) -> Dict[str, str]:
+        return {key.split("/")[-1]: value for key, value in params.items()}
+
+
+if __name__ == "__main__":
+    import pprint
+    pss = ParameterStore(path="/services/bi-data-pipelines")
+    params = pss.get_parameters_by_path()
+    results = pss.parse_params_to_key_value_pairs(params)
+    pprint.pprint(results)
