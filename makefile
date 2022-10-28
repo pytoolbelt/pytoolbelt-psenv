@@ -19,6 +19,9 @@ init-dev:         ## Create local python venv for development
 	&& pip install --upgrade pip setuptools wheel \
 	&& pip install -r ${REQ_FILE} --progress-bar off
 
+.PHONY: install-dev
+install-dev:
+	pip install -e ".[dev]"
 
 .PHONY: install
 install:
@@ -28,21 +31,12 @@ install:
 
 .PHONY: format
 format:     ## Run black python linter
-	. venv/bin/activate && python -m black ${PROJECT_DIR} ${TEST_DIR}
+	black ${PROJECT_DIR} ${TEST_DIR}
 
 .PHONY: check-format
 check-format:
-	. venv/bin/activate && python -m black --check ${PROJECT_DIR} ${TEST_DIR}
+	black --check ${PROJECT_DIR} ${TEST_DIR}
 
 .PHONY: test
 test:     ## Run project tests using pytest
-	. venv/bin/activate && python -m pytest ${TEST_DIR} -p no:warnings -s
-
-.PHONY: qa
-qa:       ## Run both linter and pytest together
-	make test
-	make check-format
-
-.PHONY: install-dev
-install-dev:
-	pip install -e ".[dev]"
+	pytest ${TEST_DIR} -p no:warnings -s
