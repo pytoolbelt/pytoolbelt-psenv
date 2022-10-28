@@ -3,18 +3,13 @@ from typing import Dict
 
 
 class ParameterStore:
-
     def __init__(self, path: str) -> None:
         self.path = path
         self.ssm_client = boto3.client("ssm")
 
     def get_parameters_by_path(self) -> Dict[str, str]:
 
-        response = self.ssm_client.get_parameters_by_path(
-            Path=self.path,
-            Recursive=True,
-            WithDecryption=True
-        )
+        response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True)
 
         return {p["Name"].upper(): p["Value"] for p in response["Parameters"] if "\n" not in p["Value"]}
 

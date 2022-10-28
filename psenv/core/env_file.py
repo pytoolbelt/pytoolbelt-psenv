@@ -3,14 +3,10 @@ from typing import Dict, List
 
 
 class EnvFile:
-
     def __init__(self, path: Path) -> None:
         self.path = path
 
-        self._methods = {
-            "overwrite": self._overwrite_env,
-            "update": self._update_env
-        }
+        self._methods = {"overwrite": self._overwrite_env, "update": self._update_env}
 
     def write_params_to_env(self, params: Dict[str, str], method: str = "overwrite") -> None:
 
@@ -35,4 +31,3 @@ class EnvFile:
 
     def _update_env(self, params: Dict[str, str]) -> None:
         pass
-

@@ -17,7 +17,7 @@ def fetch_entrypoint(cmd: Namespace) -> None:
         print("unknown exception encountered... no idea why.")
 
     # make things with parameters
-    parameter_store = ParameterStore(path=config['path'])
+    parameter_store = ParameterStore(path=config["path"])
     params = parameter_store.get_parameters_by_path()
     params = parameter_store.parse_params_to_key_value_pairs(params)
 

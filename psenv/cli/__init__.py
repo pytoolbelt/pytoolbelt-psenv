@@ -1,21 +1,15 @@
 from argparse import ArgumentParser, RawTextHelpFormatter, SUPPRESS
 
-from . import (
-    version,
-    fetch,
-    push,
-    init,
-    show
-)
+from . import version, fetch, push, init, show
 
 
 # Add your entry points / arguments in this function.....
 def parse_args():
     parser = ArgumentParser()
-    sub_parsers = parser.add_subparsers(dest='command')
+    sub_parsers = parser.add_subparsers(dest="command")
     sub_parsers.required = True
 
-    version_parser = sub_parsers.add_parser('version')
+    version_parser = sub_parsers.add_parser("version")
     version_parser.set_defaults(func=version.version_entrypoint)
 
     init_parser = sub_parsers.add_parser("init")

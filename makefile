@@ -28,11 +28,11 @@ install:
 
 .PHONY: format
 format:     ## Run black python linter
-	. venv/bin/activate python -m black ${PROJECT_DIR} ${TEST_DIR}
+	. venv/bin/activate && python -m black ${PROJECT_DIR} ${TEST_DIR}
 
 .PHONY: check-format
 check-format:
-	. venv/bin/activate python -m black --check ${PROJECT_DIR} ${TEST_DIR}
+	. venv/bin/activate && python -m black --check ${PROJECT_DIR} ${TEST_DIR}
 
 .PHONY: test
 test:     ## Run project tests using pytest
@@ -41,8 +41,4 @@ test:     ## Run project tests using pytest
 .PHONY: qa
 qa:       ## Run both linter and pytest together
 	make test
-	make lint
-
-.PHONY: install-dev
-install-dev:
-	pip install -e ".[dev]"
+	make check-format
