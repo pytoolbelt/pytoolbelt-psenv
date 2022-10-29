@@ -1,4 +1,4 @@
-import os
 from pathlib import Path
 
-PSENV_YML = Path(os.getenv("PSENV_YML", "~/.psenv.yml")).expanduser()
+PSENV_HOME = Path("~/.psenv").expanduser()
+PSENV_YML = PSENV_HOME / "psenv.yml"
