@@ -1,6 +1,6 @@
 from argparse import Namespace
 from prettytable import PrettyTable
-from psenv.core.config_parser import parse_config
+from psenv.core.helpers import parse_config
 
 
 def show_entrypoint(cmd: Namespace) -> None:

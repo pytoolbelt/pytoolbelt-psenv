@@ -3,7 +3,7 @@ from pathlib import Path
 from psenv.environment.variables import PSENV_YML
 from psenv.core.parameter_store import ParameterStore
 from psenv.core.env_file import EnvFile
-from psenv.core.config_parser import parse_config
+from psenv.core.helpers import parse_config
 
 
 def fetch_entrypoint(cmd: Namespace) -> None:

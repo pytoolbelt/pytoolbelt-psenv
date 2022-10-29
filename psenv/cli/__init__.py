@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from . import version, fetch, push, init, show
+from . import version, fetch, push, init, show, env, validation
 
 
 # Add your entry points / arguments in this function.....
@@ -24,8 +24,22 @@ def parse_args():
     push_parser = sub_parsers.add_parser("push")
     push_parser.set_defaults(func=push.push_entrypoint)
 
+    env_parser = sub_parsers.add_parser("env")
+    env_subparser = env_parser.add_subparsers()
+
+    env_new_parser = env_subparser.add_parser("new")
+    env_new_parser.add_argument("-f", "--file", action=validation.ValidateFileName)
+    env_new_parser.set_defaults(func=env.new_entrypoint)
+
+    env_destroy_parser = env_subparser.add_parser("destroy")
+    env_destroy_parser.set_defaults(func=env.destroy_entrypoint)
+
     # adding the environment flag to necessary commands
-    for p in fetch_parser, push_parser:
-        p.add_argument("-e", "--environment", required=True)
+    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser:
+        p.add_argument("-e", "--env", required=True, action=validation.ValidateEnvironmentName)
+
+    # adding the path flag to necessary commands
+    for p in env_new_parser, env_destroy_parser:
+        p.add_argument("-p", "--path", action=validation.ValidatePathName)
 
     return parser.parse_args()
