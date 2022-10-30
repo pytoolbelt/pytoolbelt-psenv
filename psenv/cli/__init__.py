@@ -23,6 +23,7 @@ def parse_args():
 
     push_parser = sub_parsers.add_parser("push")
     push_parser.set_defaults(func=push.push_entrypoint)
+    push_parser.add_argument("-o", "--overwrite", default=False, action="store_true")
 
     env_parser = sub_parsers.add_parser("env")
     env_subparser = env_parser.add_subparsers()

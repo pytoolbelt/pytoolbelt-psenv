@@ -36,7 +36,6 @@ def validate_environment_exists(environment: str) -> None:
 def validate_environment_does_not_exist(environment: str) -> None:
     environments = parse_config()["environments"].keys()
     if environment not in environments:
-        import pdb; pdb.set_trace()
         print(f"The environment {environment} does not exist. run psenv show to list configured environments.")
         exit()
 
@@ -46,11 +45,10 @@ class ValidateEnvironmentName(Action):
         validate_input_string(values, f"The {values} is not allowed in environment names.")
 
         if namespace.func.__name__ == "new_entrypoint":
-            validate_environment_exists(namespace.env)
+            validate_environment_exists(values)
 
         if namespace.func.__name__ in ["destroy_entrypoint", "fetch_entrypoint", "push_entrypoint"]:
-            validate_environment_does_not_exist(namespace.env)
-
+            validate_environment_does_not_exist(values)
         setattr(namespace, self.dest, values)
 
 
