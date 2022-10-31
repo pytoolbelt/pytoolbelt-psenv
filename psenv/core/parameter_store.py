@@ -15,7 +15,9 @@ class ParameterStore:
         while True:
 
             if next_token:
-                response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True, NextToken=next_token)
+                response = self.ssm_client.get_parameters_by_path(
+                    Path=self.path, Recursive=True, WithDecryption=True, NextToken=next_token
+                )
             else:
                 response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True)
 

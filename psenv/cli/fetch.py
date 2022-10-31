@@ -21,7 +21,6 @@ def fetch_entrypoint(cmd: Namespace) -> None:
     params = parameter_store.get_parameters_by_path()
     params = parameter_store.parse_params_to_key_value_pairs(params)
 
-
     env_path = Path(config["env"])
     env_file = EnvFile(path=env_path)
     env_file.write_params_to_env(params=params, method=cmd.method)
