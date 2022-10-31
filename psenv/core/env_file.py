@@ -42,4 +42,3 @@ class EnvFile:
         current_values = dotenv_values(self.path)
         current_values.update(**params)
         self._overwrite_env(current_values)
-

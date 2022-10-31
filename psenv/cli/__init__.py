@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from . import version, fetch, push, init, show, env, validation
+from . import version, fetch, push, init, show, env, validation, inject
 
 
 # Add your entry points / arguments in this function.....
@@ -35,8 +35,12 @@ def parse_args():
     env_destroy_parser = env_subparser.add_parser("destroy")
     env_destroy_parser.set_defaults(func=env.destroy_entrypoint)
 
+    inject_parser = sub_parsers.add_parser("inject")
+    inject_parser.set_defaults(func=inject.inject_entrypoint)
+    inject_parser.add_argument("prefix", choices=["aws"])
+
     # adding the environment flag to necessary commands
-    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser:
+    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser, inject_parser:
         p.add_argument("-e", "--env", required=True, action=validation.ValidateEnvironmentName)
 
     # adding the path flag to necessary commands
