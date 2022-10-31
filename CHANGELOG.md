@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.0 (2022-10-31)
+### Feature
+* Add fetch command ([`13c63a0`](https://github.com/JesseMaitland/psenv/commit/13c63a0dfb900691d47002ece251e7fb2dfe696f))
+
 ## v0.6.0 (2022-10-31)
 ### Feature
 * Release to pypi ([`4806905`](https://github.com/JesseMaitland/psenv/commit/48069050da6559b8be8b2aeeea93ddac2ad59606))
