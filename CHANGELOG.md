@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (2022-10-31)
+### Feature
+* Release to pypi ([`90c5b44`](https://github.com/JesseMaitland/psenv/commit/90c5b442d5e3a3a961260ce134bbb3e241c4dfcd))
+
+### Fix
+* Pin deps in toml ([`73e4867`](https://github.com/JesseMaitland/psenv/commit/73e4867f6e8f98e3163c643aa4fe66273cf6f8ba))
+
 ## v0.4.0 (2022-10-31)
 ### Feature
 * Release to pypi ([`dbdc817`](https://github.com/JesseMaitland/psenv/commit/dbdc817dc0a61136a571dda850c93397bd0b9f0c))
