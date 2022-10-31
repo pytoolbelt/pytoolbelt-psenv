@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2022-10-31)
+### Feature
+* Release to pypi ([`dbdc817`](https://github.com/JesseMaitland/psenv/commit/dbdc817dc0a61136a571dda850c93397bd0b9f0c))
+
 ## v0.3.0 (2022-10-31)
 ### Feature
 * Added aws injection command ([`175e394`](https://github.com/JesseMaitland/psenv/commit/175e394b8bac6e6b896c2f84e6338ec36bdd6d0d))
