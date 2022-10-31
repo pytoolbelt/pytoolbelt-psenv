@@ -12,7 +12,8 @@ requires-python = ">=3.10"
 dependencies = [
 	"python-dotenv==0.20.0",
 	"pyaml==21.10.1",
-	"boto3==1.20.49"
+	"boto3==1.20.49",
+	"prettytable==3.4.1"
 ]
 
 [project.optional-dependencies]
