@@ -26,7 +26,6 @@ dev = [
 ]
 
 
-
 [project.scripts]
 psenv = "psenv.__main__:main"
 
