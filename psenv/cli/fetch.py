@@ -9,9 +9,9 @@ from psenv.core.helpers import parse_config
 def fetch_entrypoint(cmd: Namespace) -> None:
 
     try:
-        config = parse_config()["environments"][cmd.environment]
+        config = parse_config()["environments"][cmd.env]
     except KeyError:
-        print(f"environment {cmd.environment} not found in .psenv.yml config file.")
+        print(f"environment {cmd.env} not found in .psenv.yml config file.")
         exit()
     except Exception:
         print("unknown exception encountered... no idea why.")
