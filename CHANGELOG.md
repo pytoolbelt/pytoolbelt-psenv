@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.0 (2022-10-31)
+### Feature
+* Improve fetch command ([`8a5f942`](https://github.com/JesseMaitland/psenv/commit/8a5f94210b678e3a7dec5eae5aabe00ac6a99c4d))
+
 ## v0.7.0 (2022-10-31)
 ### Feature
 * Add fetch command ([`13c63a0`](https://github.com/JesseMaitland/psenv/commit/13c63a0dfb900691d47002ece251e7fb2dfe696f))
