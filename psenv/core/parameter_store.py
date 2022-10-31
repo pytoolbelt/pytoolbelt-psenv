@@ -9,9 +9,24 @@ class ParameterStore:
 
     def get_parameters_by_path(self) -> Dict[str, str]:
 
-        response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True)
+        params = {}
+        next_token = ""
 
-        return {p["Name"].upper(): p["Value"] for p in response["Parameters"] if "\n" not in p["Value"]}
+        while True:
+
+            if next_token:
+                response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True, NextToken=next_token)
+            else:
+                response = self.ssm_client.get_parameters_by_path(Path=self.path, Recursive=True, WithDecryption=True)
+
+            params.update(**{p["Name"].upper(): p["Value"] for p in response["Parameters"] if "\n" not in p["Value"]})
+
+            try:
+                next_token = response["NextToken"]
+            except KeyError:
+                break
+
+        return params
 
     @staticmethod
     def parse_params_to_key_value_pairs(params: Dict[str, str]) -> Dict[str, str]:
