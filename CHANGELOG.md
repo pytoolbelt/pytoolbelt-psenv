@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.0 (2022-10-31)
+### Feature
+* Add help in cli ([`6395011`](https://github.com/JesseMaitland/psenv/commit/63950115685848852ed6eca5ed26a674a61969a4))
+
 ## v0.8.0 (2022-10-31)
 ### Feature
 * Improve fetch command ([`8a5f942`](https://github.com/JesseMaitland/psenv/commit/8a5f94210b678e3a7dec5eae5aabe00ac6a99c4d))
