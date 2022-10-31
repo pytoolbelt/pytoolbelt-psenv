@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-10-31)
+### Feature
+* Added aws injection command ([`175e394`](https://github.com/JesseMaitland/psenv/commit/175e394b8bac6e6b896c2f84e6338ec36bdd6d0d))
+* Push and pull working ([`cd02bc7`](https://github.com/JesseMaitland/psenv/commit/cd02bc7b346e8e63b32bf9393cfd81596f98b03c))
+
+### Fix
+* Black formatting ([`9b19d09`](https://github.com/JesseMaitland/psenv/commit/9b19d090b9b50c4cfc6c9d8c6abda64f5a73c058))
+
 ## v0.2.0 (2022-10-28)
 ### Feature
 * Init release ([`7db2f08`](https://github.com/JesseMaitland/psenv/commit/7db2f0898e8d6744fed47232a8fca4de55d0a345))
