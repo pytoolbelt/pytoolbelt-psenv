@@ -26,6 +26,7 @@ def validate_file_name(path_string: str) -> None:
             print(f"the character {char} is forbidden in path names.")
             exit()
 
+
 def validate_environment_exists(environment: str) -> None:
     environments = parse_config()["environments"].keys()
     if environment in environments:
