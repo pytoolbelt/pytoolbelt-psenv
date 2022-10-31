@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.0 (2022-10-31)
+### Feature
+* Release to pypi ([`4806905`](https://github.com/JesseMaitland/psenv/commit/48069050da6559b8be8b2aeeea93ddac2ad59606))
+
 ## v0.5.0 (2022-10-31)
 ### Feature
 * Release to pypi ([`90c5b44`](https://github.com/JesseMaitland/psenv/commit/90c5b442d5e3a3a961260ce134bbb3e241c4dfcd))
