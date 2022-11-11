@@ -1,6 +1,9 @@
+import shlex
 from argparse import Namespace
 from pathlib import Path
-from prettytable import PrettyTable
+from tempfile import gettempdir, NamedTemporaryFile
+from subprocess import Popen
+from psenv.environment.variables import PSENV_COMPARE_COMMAND
 from psenv.core.helpers import parse_config
 from psenv.core.parameter_store import ParameterStore
 from psenv.core.env_file import EnvFile
@@ -24,5 +27,19 @@ def compare_entrypoint(cmd: Namespace) -> None:
     env_path = Path(config["env"])
     env_file = EnvFile(path=env_path)
 
+    some_file = Path.cwd() / "some_file.env"
+
+    some_file.touch(exist_ok=True)
+
+    temp_file = NamedTemporaryFile()
+    temp_env_path = Path(temp_file.name)
 
 
+    temp_env_file = EnvFile(path=some_file)
+    temp_env_file.write_params_to_env(params=params)
+
+    command = PSENV_COMPARE_COMMAND.format(file1=env_file.path.absolute().as_posix(), file2=temp_env_file.path.absolute().as_posix())
+    command = shlex.split(command)
+
+    process = Popen(args=command)
+    output, error = process.communicate()

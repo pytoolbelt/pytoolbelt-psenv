@@ -48,10 +48,9 @@ class EnvFile:
                 line = f"{key}={value}"
                 env.write(f"{line}\n")
 
-    def _update_env(self, params: Dict[str, str]) -> None:
-        current_values = dotenv_values(self.path)
-        current_values.update(**params)
-        self._overwrite_env(current_values)
+    def _update_env(self, params: Dict[str, str] = None) -> None:
+        self.main_content.update(**params)
+        self._overwrite_env(self.main_content)
 
     def write_params_to_env(self, params: Dict[str, str], method: str = "overwrite") -> None:
 

@@ -72,5 +72,4 @@ def parse_args():
     # adding the path flag to necessary commands
     for p in env_new_parser, env_destroy_parser:
         p.add_argument("-p", "--path", action=validation.ValidatePathName, help="variable path in the parameter store")
-
     return parser.parse_args()

@@ -12,6 +12,7 @@ def inject_entrypoint(cmd: Namespace) -> None:
 
     if params:
         env_file.private_content.update(**params)
+        print("foo")
         env_file.write_params_to_env(params=env_file.main_content, method="update")
         env_file.append_private_section()
     else:
