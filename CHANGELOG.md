@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.10.0 (2022-11-11)
+### Feature
+* Private section injection working ([`3d4598c`](https://github.com/JesseMaitland/psenv/commit/3d4598c1955bba9e70f99fd4308c3387efd12ead))
+
 ## v0.9.0 (2022-10-31)
 ### Feature
 * Add help in cli ([`6395011`](https://github.com/JesseMaitland/psenv/commit/63950115685848852ed6eca5ed26a674a61969a4))
