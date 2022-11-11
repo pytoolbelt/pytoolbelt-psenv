@@ -24,3 +24,5 @@ def fetch_entrypoint(cmd: Namespace) -> None:
     env_path = Path(config["env"])
     env_file = EnvFile(path=env_path)
     env_file.write_params_to_env(params=params, method=cmd.method)
+    env_file.append_private_section()
+

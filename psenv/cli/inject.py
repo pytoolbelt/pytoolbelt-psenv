@@ -11,6 +11,8 @@ def inject_entrypoint(cmd: Namespace) -> None:
     params = get_environment_variables(cmd.prefix.upper())
 
     if params:
-        env_file.write_params_to_env(params=params, method="update")
+        env_file.private_content.update(**params)
+        env_file.write_params_to_env(params=env_file.main_content, method="update")
+        env_file.append_private_section()
     else:
         print(f"no params found in environment with prefix {cmd.prefix}")

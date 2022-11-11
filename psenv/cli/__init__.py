@@ -22,7 +22,7 @@ def parse_args():
     )
 
     fetch_parser = sub_parsers.add_parser("fetch")
-    fetch_parser.add_argument("-m", "--method", choices=["overwrite", "update"], default="overwrite")
+    fetch_parser.add_argument("-m", "--method", choices=["overwrite", "update"], default="update")
     fetch_parser.set_defaults(
         func=fetch.fetch_entrypoint, help="pull parameters from the path in parameter store and populate an .env file."
     )
