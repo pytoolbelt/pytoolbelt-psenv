@@ -34,11 +34,12 @@ def compare_entrypoint(cmd: Namespace) -> None:
     temp_file = NamedTemporaryFile()
     temp_env_path = Path(temp_file.name)
 
-
     temp_env_file = EnvFile(path=some_file)
     temp_env_file.write_params_to_env(params=params)
 
-    command = PSENV_COMPARE_COMMAND.format(file1=env_file.path.absolute().as_posix(), file2=temp_env_file.path.absolute().as_posix())
+    command = PSENV_COMPARE_COMMAND.format(
+        file1=env_file.path.absolute().as_posix(), file2=temp_env_file.path.absolute().as_posix()
+    )
     command = shlex.split(command)
 
     process = Popen(args=command)
