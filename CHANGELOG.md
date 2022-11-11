@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.11.0 (2022-11-11)
+### Feature
+* Compare command working ([`80b3782`](https://github.com/JesseMaitland/psenv/commit/80b37826bcdce5b31c2dbb39ee38a6388e57d228))
+
 ## v0.10.0 (2022-11-11)
 ### Feature
 * Private section injection working ([`3d4598c`](https://github.com/JesseMaitland/psenv/commit/3d4598c1955bba9e70f99fd4308c3387efd12ead))
