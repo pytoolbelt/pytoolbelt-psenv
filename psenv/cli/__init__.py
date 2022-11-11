@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from . import version, fetch, push, init, show, env, validation, inject
+from . import version, fetch, push, init, show, env, validation, inject, compare
 
 
 # Add your entry points / arguments in this function.....
@@ -9,28 +9,37 @@ def parse_args():
     sub_parsers.required = True
 
     version_parser = sub_parsers.add_parser("version")
-    version_parser.set_defaults(func=version.version_entrypoint, help="display the current version of psenv")
+    version_parser.set_defaults(
+        func=version.version_entrypoint,
+        help="display the current version of psenv"
+    )
 
     init_parser = sub_parsers.add_parser("init")
     init_parser.set_defaults(
-        func=init.init_entrypoint, help="run this command once to create the ~/.psenv directory with config."
+        func=init.init_entrypoint,
+        help="run this command once to create the ~/.psenv directory with config."
     )
 
     show_parser = sub_parsers.add_parser("show")
     show_parser.set_defaults(
-        func=show.show_entrypoint, help="print all the configured environments in ~/.psenv/psenv.yml to the terminal"
+        func=show.show_entrypoint,
+        help="print all the configured environments in ~/.psenv/psenv.yml to the terminal"
     )
 
     fetch_parser = sub_parsers.add_parser("fetch")
     fetch_parser.add_argument("-m", "--method", choices=["overwrite", "update"], default="update")
     fetch_parser.set_defaults(
-        func=fetch.fetch_entrypoint, help="pull parameters from the path in parameter store and populate an .env file."
+        func=fetch.fetch_entrypoint,
+        help="pull parameters from the path in parameter store and populate an .env file."
     )
 
     push_parser = sub_parsers.add_parser("push")
     push_parser.set_defaults(func=push.push_entrypoint)
     push_parser.add_argument(
-        "-o", "--overwrite", default=False, action="store_true", help="overwrite the existing parameter store value."
+        "-o", "--overwrite",
+        default=False,
+        action="store_true",
+        help="overwrite the existing parameter store value."
     )
 
     env_parser = sub_parsers.add_parser("env")
@@ -47,8 +56,11 @@ def parse_args():
     inject_parser.set_defaults(func=inject.inject_entrypoint)
     inject_parser.add_argument("prefix", choices=["aws"], help="copy from local environment to .env file")
 
+    compare_parser = sub_parsers.add_parser("compare")
+    compare_parser.set_defaults(func=compare.compare_entrypoint)
+
     # adding the environment flag to necessary commands
-    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser, inject_parser:
+    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser, inject_parser, compare_parser:
         p.add_argument(
             "-e",
             "--env",
