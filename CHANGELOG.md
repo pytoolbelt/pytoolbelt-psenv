@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.12.0 (2022-11-12)
+### Feature
+* Add new command ([`3776ff2`](https://github.com/JesseMaitland/psenv/commit/3776ff221f6ac452e89229f66d2be0d9bc51e84e))
+
 ## v0.11.0 (2022-11-11)
 ### Feature
 * Compare command working ([`80b3782`](https://github.com/JesseMaitland/psenv/commit/80b37826bcdce5b31c2dbb39ee38a6388e57d228))
