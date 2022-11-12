@@ -16,9 +16,9 @@ def fetch_entrypoint(cmd: Namespace) -> None:
     env_path = Path(environment["env"]).expanduser()
     env_file = EnvFile(path=env_path)
 
-    print("writing params to .env file")
+    print(f"writing params to {env_path.as_posix()}")
     env_file.write_params_to_env(params=params, method=cmd.method)
 
     if cmd.method == "update":
-        print("updating private .env section")
+        print("updating private .env")
         env_file.append_private_section()

@@ -1,5 +1,5 @@
 from pathlib import Path
-from psenv.environment.variables import PSENV_YML, PSENV_HOME
+from psenv.environment.config import PSENV_YML, PSENV_HOME
 
 
 def test_psenv_home() -> None:

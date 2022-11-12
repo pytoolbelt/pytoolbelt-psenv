@@ -10,4 +10,4 @@ __version__ = "0.11.0"
 
 
 def version_entrypoint(cmd: Namespace) -> None:
-    print(__version__)
+    print(f"psenv -- Version : {__version__}")

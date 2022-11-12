@@ -5,7 +5,6 @@ from psenv.environment.config import PSENV_YML
 
 
 class ConfigFile:
-
     def __init__(self, path: Path = PSENV_YML) -> None:
         self.path = path
         self.config = self.parse_config()
@@ -20,7 +19,7 @@ class ConfigFile:
 
     def get_environment(self, env: str) -> Dict[str, Any]:
         try:
-            return self.config[env]
+            return self.config["environments"][env]
         except KeyError:
             print(f"environment {env} not found in {self.path.as_posix()}")
             exit()
@@ -28,4 +27,3 @@ class ConfigFile:
     def save_config(self) -> None:
         with self.path.open(mode="w+") as yml_config:
             yaml.dump(data=self.config, stream=yml_config)
-

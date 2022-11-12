@@ -29,7 +29,7 @@ def validate_file_name(path_string: str) -> None:
 
 def validate_environment_exists(environment: str) -> None:
     config_file = ConfigFile()
-    environments = config_file.config.keys()
+    environments = config_file.config["environments"].keys()
     if environment in environments:
         print(f"The environment {environment} already exists. Please choose another name or remove existing entry.")
         exit()
@@ -37,7 +37,7 @@ def validate_environment_exists(environment: str) -> None:
 
 def validate_environment_does_not_exist(environment: str) -> None:
     config_file = ConfigFile()
-    environments = config_file.config.keys()
+    environments = config_file.config["environments"].keys()
     if environment not in environments:
         print(f"The environment {environment} does not exist. run psenv show to list configured environments.")
         exit()
