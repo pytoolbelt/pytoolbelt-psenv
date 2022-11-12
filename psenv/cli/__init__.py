@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from . import version, fetch, push, init, show, env, validation, inject, compare
+from psenv.cli import version, fetch, push, init, show, env, validation, inject
 
 
 # Add your entry points / arguments in this function.....
@@ -46,9 +46,6 @@ def parse_args():
     inject_parser = sub_parsers.add_parser("inject")
     inject_parser.set_defaults(func=inject.inject_entrypoint)
     inject_parser.add_argument("prefix", choices=["aws"], help="copy from local environment to .env file")
-
-    compare_parser = sub_parsers.add_parser("compare")
-    compare_parser.set_defaults(func=compare.compare_entrypoint)
 
     # adding the environment flag to necessary commands
     for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser, inject_parser, compare_parser:

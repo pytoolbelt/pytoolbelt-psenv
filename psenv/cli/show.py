@@ -1,17 +1,15 @@
 from argparse import Namespace
 from prettytable import PrettyTable
-from psenv.core.helpers import parse_config
+from psenv.core.config_file import ConfigFile
 
 
 def show_entrypoint(cmd: Namespace) -> None:
-    print("fetch entrypoint")
-
-    config = parse_config()
+    config_file = ConfigFile()
 
     table = PrettyTable()
     table.field_names = ["environment", "parameter store path", "local env file path"]
 
-    for key, value in config["environments"].items():
+    for key, value in config_file.config["environments"].items():
         row = [key, value["path"], value["env"]]
         table.add_row(row)
 

@@ -1,14 +1,14 @@
 from argparse import Namespace
-from psenv.core.helpers import parse_config, save_config
+from psenv.core.config_file import ConfigFile
 
 
 def new_entrypoint(cmd: Namespace) -> None:
-    config = parse_config()
+    config_file = ConfigFile()
 
     new_entry = {cmd.env: {"path": cmd.path, "env": cmd.file}}
 
-    config["environments"].update(**new_entry)
-    save_config(config)
+    config_file.config["environments"].update(**new_entry)
+    config_file.save_config()
 
 
 def destroy_entrypoint(cmd: Namespace) -> None:

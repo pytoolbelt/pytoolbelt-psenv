@@ -1,29 +1,24 @@
 from argparse import Namespace
 from pathlib import Path
-from psenv.environment.variables import PSENV_YML
 from psenv.core.parameter_store import ParameterStore
+from psenv.core.config_file import ConfigFile
 from psenv.core.env_file import EnvFile
-from psenv.core.helpers import parse_config
 
 
 def fetch_entrypoint(cmd: Namespace) -> None:
+    config_file = ConfigFile()
+    environment = config_file.get_environment(cmd.env)
 
-    try:
-        config = parse_config()["environments"][cmd.env]
-    except KeyError:
-        print(f"environment {cmd.env} not found in .psenv.yml config file.")
-        exit()
-    except Exception:
-        print("unknown exception encountered... no idea why.")
-
-    # make things with parameters
-    parameter_store = ParameterStore(path=config["path"])
+    parameter_store = ParameterStore(path=environment["path"])
     params = parameter_store.get_parameters_by_path()
     params = parameter_store.parse_params_to_key_value_pairs(params)
 
-    env_path = Path(config["env"]).expanduser()
+    env_path = Path(environment["env"]).expanduser()
     env_file = EnvFile(path=env_path)
+
+    print("writing params to .env file")
     env_file.write_params_to_env(params=params, method=cmd.method)
 
     if cmd.method == "update":
+        print("updating private .env section")
         env_file.append_private_section()
