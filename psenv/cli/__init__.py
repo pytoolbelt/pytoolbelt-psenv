@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from psenv.cli import version, fetch, push, init, show, env, validation, inject
+from psenv.cli import version, fetch, push, init, show, validation, inject, new, destroy
 
 
 # Add your entry points / arguments in this function.....
@@ -33,22 +33,19 @@ def parse_args():
         "-o", "--overwrite", default=False, action="store_true", help="overwrite the existing parameter store value."
     )
 
-    env_parser = sub_parsers.add_parser("env")
-    env_subparser = env_parser.add_subparsers()
+    new_parser = sub_parsers.add_parser("new")
+    new_parser.add_argument("-f", "--file", action=validation.ValidateFileName)
+    new_parser.set_defaults(func=new.new_entrypoint)
 
-    env_new_parser = env_subparser.add_parser("new")
-    env_new_parser.add_argument("-f", "--file", action=validation.ValidateFileName)
-    env_new_parser.set_defaults(func=env.new_entrypoint)
-
-    env_destroy_parser = env_subparser.add_parser("destroy")
-    env_destroy_parser.set_defaults(func=env.destroy_entrypoint)
+    destroy_parser = sub_parsers.add_parser("destroy")
+    destroy_parser.set_defaults(func=destroy.destroy_entrypoint)
 
     inject_parser = sub_parsers.add_parser("inject")
     inject_parser.set_defaults(func=inject.inject_entrypoint)
     inject_parser.add_argument("prefix", choices=["aws"], help="copy from local environment to .env file")
 
     # adding the environment flag to necessary commands
-    for p in fetch_parser, push_parser, env_new_parser, env_destroy_parser, inject_parser, compare_parser:
+    for p in fetch_parser, push_parser, new_parser, destroy_parser, inject_parser:
         p.add_argument(
             "-e",
             "--env",
@@ -58,6 +55,6 @@ def parse_args():
         )
 
     # adding the path flag to necessary commands
-    for p in env_new_parser, env_destroy_parser:
+    for p in new_parser, destroy_parser:
         p.add_argument("-p", "--path", action=validation.ValidatePathName, help="variable path in the parameter store")
     return parser.parse_args()

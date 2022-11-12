@@ -1,6 +1,6 @@
 from argparse import ArgumentParser, Action, Namespace
 from typing import Any
-from psenv.core.helpers import parse_config
+from psenv.core.config_file import ConfigFile
 
 
 def validate_input_string(input_string: str, message: str) -> None:
@@ -28,14 +28,16 @@ def validate_file_name(path_string: str) -> None:
 
 
 def validate_environment_exists(environment: str) -> None:
-    environments = parse_config()["environments"].keys()
+    config_file = ConfigFile()
+    environments = config_file.config.keys()
     if environment in environments:
         print(f"The environment {environment} already exists. Please choose another name or remove existing entry.")
         exit()
 
 
 def validate_environment_does_not_exist(environment: str) -> None:
-    environments = parse_config()["environments"].keys()
+    config_file = ConfigFile()
+    environments = config_file.config.keys()
     if environment not in environments:
         print(f"The environment {environment} does not exist. run psenv show to list configured environments.")
         exit()

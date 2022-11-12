@@ -1,7 +1,6 @@
 from argparse import Namespace
 from psenv.core.config_file import ConfigFile
 
-
 def new_entrypoint(cmd: Namespace) -> None:
     config_file = ConfigFile()
 
@@ -9,7 +8,3 @@ def new_entrypoint(cmd: Namespace) -> None:
 
     config_file.config["environments"].update(**new_entry)
     config_file.save_config()
-
-
-def destroy_entrypoint(cmd: Namespace) -> None:
-    print("hulk smash!!")
