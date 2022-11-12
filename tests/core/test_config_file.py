@@ -11,4 +11,3 @@ def test_default_path(m_parse_config: MagicMock) -> None:
     assert config_file.path == PSENV_YML
     assert config_file.config == "test-value"
     m_parse_config.assert_called_once()
-
