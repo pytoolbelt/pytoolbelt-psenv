@@ -40,9 +40,9 @@ def parse_args():
     destroy_parser = sub_parsers.add_parser("destroy")
     destroy_parser.set_defaults(func=destroy.destroy_entrypoint)
 
-    inject_parser = sub_parsers.add_parser("inject")
+    inject_parser = sub_parsers.add_parser("inject", help="Inject variables from current session to a .env file")
     inject_parser.set_defaults(func=inject.inject_entrypoint)
-    inject_parser.add_argument("prefix", choices=["aws"], help="copy from local environment to .env file")
+    inject_parser.add_argument("-p", "--prefix", help="target environment variables with this prefix.", required=True)
 
     # adding the environment flag to necessary commands
     for p in fetch_parser, push_parser, new_parser, destroy_parser, inject_parser:
