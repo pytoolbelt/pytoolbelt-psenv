@@ -59,11 +59,11 @@ populate the .env file with the secrets and parameters you need for your environ
 ``psenv push --env new_env``
 
 
-## Credential Injection (Currently just AWS Supported)
-Sometimes you might want to copy some environment variables from your local env to a .env file.
-for example when you use temp AWS credentials and need to load them into more than one project / environment. To do this, get your creds however you normally would
+## Credential Injection
+Sometimes you might want to copy some environment variables from your current terminal session environment to a .env file.
+Example when you use temp AWS credentials and need to load them into more than one project / environment. To do this, get your creds however you normally would
 and then
 
-``psenv inject aws --env some_env``
+``psenv inject --prefix aws --env some_env``
 
 all your aws credentials will be injected to your .env file! Like Magic!
