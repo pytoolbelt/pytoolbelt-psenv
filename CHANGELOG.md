@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.13.0 (2022-11-14)
+### Feature
+* Add prefix flag ([`efaf0b9`](https://github.com/JesseMaitland/psenv/commit/efaf0b92ba069985a5a33c135c329bcc4b2f2741))
+
 ## v0.12.0 (2022-11-12)
 ### Feature
 * Add new command ([`3776ff2`](https://github.com/JesseMaitland/psenv/commit/3776ff221f6ac452e89229f66d2be0d9bc51e84e))
