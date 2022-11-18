@@ -13,4 +13,4 @@ def push_entrypoint(cmd: Namespace) -> None:
     env_file = EnvFile(path=env_path)
 
     parameter_store = ParameterStore(path=environment["path"])
-    parameter_store.push_to_parameter_store(params=env_file.main_content, overwrite=cmd.overwrite)
+    parameter_store.push_to_parameter_store(params=env_file.params, overwrite=cmd.overwrite)

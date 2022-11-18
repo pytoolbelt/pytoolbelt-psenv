@@ -1,65 +1,73 @@
 from io import StringIO
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, TextIO
 from dotenv import dotenv_values
-
-PRIVATE_MARKER = "#<private>"
+from psenv.environment.config import PSENV_TEMPLATE_PREFIX, PSENV_PRIVATE_MARKER
 
 
 class EnvFile:
-    def __init__(self, path: Path) -> None:
-        self.path = path
 
-        # set up main and private content
-        content = self.path.read_text().partition(PRIVATE_MARKER)
-        self.main_content = self._parse_values_to_dict(content[0])
-        self.private_content = self._parse_values_to_dict(content[2])
+    def __init__(self, path: str) -> None:
+        self.path = Path(path).expanduser()
+        self._main_params = {}
+        self._private_params = {}
+        self._template_params = {}
+        self._prefix = ""
 
-        self._methods = {"overwrite": self._overwrite_env, "update": self._update_env}
+        # read file and parse out sections if they exist
+        mp, _, pp = self.path.read_text().partition(PSENV_PRIVATE_MARKER)
+        with StringIO() as stream:
+            stream.write(mp)
+            stream.seek(0)
+            self._main_params = dotenv_values(stream=stream)
 
-    @staticmethod
-    def _parse_values_to_dict(content: str) -> Dict[str, str]:
-        with StringIO() as buffer:
-            buffer.write(content)
-            buffer.seek(0)
-            return dotenv_values(stream=buffer)
+        with StringIO() as stream:
+            stream.write(pp)
+            stream.seek(0)
+            self._private_params = dotenv_values(stream=stream)
 
-    @staticmethod
-    def _get_sorted_keys(params: Dict[str, str]) -> List[str]:
-        return sorted(params.keys())
+        self._process_template_params()
 
-    def _overwrite_env(self, params: Dict[str, str], mode: str = "w+", extra: Optional[str] = None) -> None:
-        keys = self._get_sorted_keys(params)
+    def _process_template_params(self) -> None:
+        template_keys = [key for key in self._main_params.keys() if key.startswith(PSENV_TEMPLATE_PREFIX)]
 
-        with self.path.open(mode=mode) as env:
-            if extra:
-                env.write(extra)
+        for template_key in template_keys:
+            template_entry = self._main_params.pop(template_key)
+            private_key = template_key.lstrip(PSENV_TEMPLATE_PREFIX)
 
-            ref_prefix = ""
-            for key in keys:
+            if private_key not in self._private_params.keys():
+                self._private_params.update(**template_entry)
 
-                current_prefix = key.split("_")[0]
-                if current_prefix != ref_prefix:
-                    ref_prefix = current_prefix
-                    env.write("\n")
-                    env.write(f"# ----------------------------{current_prefix}------------------------------------ #\n")
+    def _write_param_to_file(self, key: str, value: str, env: TextIO) -> None:
 
-                value = params[key]
-                line = f"{key}={value}"
-                env.write(f"{line}\n")
+        prefix = key.split("_")[0]
+        if prefix != self._prefix:
+            self._prefix = prefix
+            env.write("\n")
+            env.write(f"# ----------------------------{self._prefix}------------------------------------ #\n")
 
-    def _update_env(self, params: Dict[str, str] = None) -> None:
-        self.main_content.update(**params)
-        self._overwrite_env(self.main_content)
+        line = f"{key}={value}"
+        env.write(f"{line}\n")
 
-    def write_params_to_env(self, params: Dict[str, str], method: str = "overwrite") -> None:
+    def get_params(self, section: str) -> Dict[str, str]:
+        return getattr(self, f"_{section}_params", {})
 
-        if method not in self._methods.keys():
-            raise ValueError(f"available methods are {self._methods.keys()} got {method} instead")
+    def update_params(self, params: Dict[str, str], section: str) -> None:
+        p = self.get_params(section)
+        p.update(**params)
+        setattr(self, f"_{section}_params", p)
 
-        method = self._methods.get(method)
-        method(params=params)
+    def write_params(self) -> None:
+        self._prefix = ""
 
-    def append_private_section(self) -> None:
-        extra = f"\n\n{PRIVATE_MARKER}\n\n"
-        self._overwrite_env(params=self.private_content, mode="a", extra=extra)
+        with self.path.open(mode="w+") as env:
+            for section in "main", "private":
+                params = self.get_params(section)
+                keys = sorted(params.keys())
+
+                if section == "private":
+                    env.write(f"\n\n{PSENV_PRIVATE_MARKER}\n\n")
+
+                for key in keys:
+                    value = params[key]
+                    self._write_param_to_file(key, value, env)
