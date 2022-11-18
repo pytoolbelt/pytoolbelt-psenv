@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.14.0 (2022-11-15)
+### Feature
+* Add cli help ([`726f7c8`](https://github.com/JesseMaitland/psenv/commit/726f7c8d8b0357bcca738663d484853d3169ce9b))
+
 ## v0.13.0 (2022-11-14)
 ### Feature
 * Add prefix flag ([`efaf0b9`](https://github.com/JesseMaitland/psenv/commit/efaf0b92ba069985a5a33c135c329bcc4b2f2741))
