@@ -13,9 +13,7 @@ def fetch_entrypoint(cmd: Namespace) -> None:
     params = parameter_store.parse_params_to_key_value_pairs(params)
 
     env_file = EnvFile(environment["env"])
-    env_file.update_params(params=params, section="main")
+    env_file.update_params(params=params, section="main", template_params=True)
 
     print(f"writing params to {env_file.path.as_posix()}")
     env_file.write_params()
-
-
