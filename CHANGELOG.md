@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.15.0 (2022-11-18)
+### Feature
+* Added templating parameters ([`69ba593`](https://github.com/JesseMaitland/psenv/commit/69ba593662cb2aa4e4442965a8f99d790b88f20f))
+* Added templating parameters ([`b443176`](https://github.com/JesseMaitland/psenv/commit/b443176f4146db64604142ed3e536d8432692aa6))
+
 ## v0.14.0 (2022-11-15)
 ### Feature
 * Add cli help ([`726f7c8`](https://github.com/JesseMaitland/psenv/commit/726f7c8d8b0357bcca738663d484853d3169ce9b))
