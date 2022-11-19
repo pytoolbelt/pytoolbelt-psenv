@@ -1,5 +1,4 @@
 from argparse import Namespace
-from psenv.core.helpers import get_environment_variables
 from psenv.core.env_file import EnvFile
 from psenv.core.config_file import ConfigFile
 
@@ -11,8 +10,8 @@ def inject_entrypoint(cmd: Namespace) -> None:
 
     env_file = EnvFile(environment["env"])
 
-    # get environment vars from parent process
-    params = get_environment_variables(cmd.prefix.upper())
+    # get environment variables from parent process
+    params = EnvFile.get_environment_variables(cmd.prefix.upper())
 
     # update the private section of our parameters
     env_file.update_params(params=params, section="private")

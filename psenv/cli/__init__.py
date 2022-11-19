@@ -19,6 +19,7 @@ def parse_args():
 
     fetch_parser = sub_parsers.add_parser("fetch", help="Fetch parameters from the AWS Parameter Store")
     fetch_parser.add_argument("-m", "--method", choices=["overwrite", "update"], default="update")
+    fetch_parser.add_argument("--no-template", action="store_false", default=True)
     fetch_parser.set_defaults(func=fetch.fetch_entrypoint)
 
     push_parser = sub_parsers.add_parser("push", help="Push parameters to the AWS Parameter Store")

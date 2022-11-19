@@ -1,3 +1,4 @@
+import os
 from io import StringIO
 from pathlib import Path
 from typing import Dict, TextIO
@@ -78,3 +79,15 @@ class EnvFile:
                 for key in keys:
                     value = params[key]
                     self._write_param_to_file(key, value, env)
+
+    def clear_params(self, section: str) -> None:
+        setattr(self, f"_{section}_params", {})
+
+    @staticmethod
+    def get_environment_variables(prefix: str) -> Dict[str, str]:
+        retrieved = {}
+        prefix = prefix.upper()
+        for key, value in os.environ.items():
+            if key.startswith(prefix):
+                retrieved[key] = value
+        return retrieved

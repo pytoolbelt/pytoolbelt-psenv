@@ -12,4 +12,7 @@ def push_entrypoint(cmd: Namespace) -> None:
     params = env_file.get_params("main")
 
     parameter_store = ParameterStore(path=environment["path"])
-    parameter_store.push_to_parameter_store(params=params, overwrite=cmd.overwrite)
+    responses = parameter_store.push(params=params, overwrite=cmd.overwrite)
+
+    for response in responses:
+        print(response)
