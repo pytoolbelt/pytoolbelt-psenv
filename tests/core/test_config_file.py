@@ -4,7 +4,6 @@ from psenv.environment.config import PSENV_YML
 
 
 DUMMY_CONFIG = {"environments": {"foo": {"env": "some-env-value", "path": "some-path-value"}}}
-
 EXPECTED_ENV = {"env": "some-env-value", "path": "some-path-value"}
 
 
