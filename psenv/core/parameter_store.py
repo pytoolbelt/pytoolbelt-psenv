@@ -6,6 +6,7 @@ class ParameterStore:
     """
     Class to represent the AWS ssm parameter store
     """
+
     def __init__(self, path: str) -> None:
         self.path = path
         self.ssm_client = boto3.client("ssm")
@@ -17,7 +18,7 @@ class ParameterStore:
     @staticmethod
     def _chunk_list(chunk_list: List[str], chunk_size: Optional[int] = 10):
         for i in range(0, len(chunk_list), chunk_size):
-            yield chunk_list[i:i + chunk_size]
+            yield chunk_list[i : i + chunk_size]
 
     def fetch(self) -> Dict[str, str]:
 
@@ -26,11 +27,7 @@ class ParameterStore:
 
         while True:
 
-            fetch_kwargs = {
-                "Path": self.path,
-                "Recursive": True,
-                "WithDecryption": True
-            }
+            fetch_kwargs = {"Path": self.path, "Recursive": True, "WithDecryption": True}
 
             if next_token:
                 fetch_kwargs["NextToken"] = next_token
@@ -58,8 +55,3 @@ class ParameterStore:
         names = [f"{self.path}/{key}" for key in params.keys()]
         for names_chunk in self._chunk_list(names):
             yield self.ssm_client.delete_parameters(Names=names_chunk)
-
-
-
-
-

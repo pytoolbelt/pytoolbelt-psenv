@@ -15,6 +15,7 @@ def fetch_entrypoint(cmd: Namespace) -> None:
 
     if not params:
         print(f"No params found in the parameter store on path {environment['path']}")
+        exit()
 
     env_file = EnvFile(environment["env"])
 
@@ -22,7 +23,9 @@ def fetch_entrypoint(cmd: Namespace) -> None:
         print(f"Overwriting {env_file.path.as_posix()}")
         with env_file.path.open(mode="w+") as env:
             env.truncate()
-        env_file.clear_params(section="private")
+
+        for section in "main", "private", "template":
+            env_file.clear_params(section)
 
     env_file.update_params(params=params, section="main", template_params=cmd.no_template)
 
