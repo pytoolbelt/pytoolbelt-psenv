@@ -1,7 +1,6 @@
 from argparse import Namespace
 from psenv.core.config_file import ConfigFile
 from psenv.core.parameter_store import ParameterStore
-from psenv.core.env_file import EnvFile
 
 
 def destroy_entrypoint(cmd: Namespace) -> None:
@@ -9,9 +8,7 @@ def destroy_entrypoint(cmd: Namespace) -> None:
     environment = config_file.get_environment(cmd.env)
 
     parameter_store = ParameterStore(path=environment["path"])
-    env_file = EnvFile(environment["env"])
-
-    params = env_file.get_params("main")
+    params = parameter_store.fetch()
     delete_generator = parameter_store.delete(params)
 
     while True:

@@ -2,14 +2,19 @@ from argparse import Namespace
 from psenv.core.parameter_store import ParameterStore
 from psenv.core.config_file import ConfigFile
 from psenv.core.env_file import EnvFile
+from psenv.utils.cli import validate_account
 
 
+@validate_account
 def fetch_entrypoint(cmd: Namespace) -> None:
     config_file = ConfigFile()
     environment = config_file.get_environment(cmd.env)
 
     parameter_store = ParameterStore(path=environment["path"])
     params = parameter_store.fetch()
+
+    if not params:
+        print(f"No params found in the parameter store on path {environment['path']}")
 
     env_file = EnvFile(environment["env"])
 
