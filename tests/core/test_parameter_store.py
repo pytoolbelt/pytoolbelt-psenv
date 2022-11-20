@@ -4,29 +4,14 @@ from psenv.core.parameter_store import ParameterStore
 
 
 DUMMY_FETCH_RESPONSE = {
-    "Parameters": [
-        {
-            "Name": "CAPITAN_AMERICA",
-            "Value": "shield"
-        },
-        {
-            "Name": "the_hulk",
-            "Value": "smash!"
-        }
-    ]
+    "Parameters": [{"Name": "CAPITAN_AMERICA", "Value": "shield"}, {"Name": "the_hulk", "Value": "smash!"}]
 }
 
-DUMMY_PUSH_RESPONSE = {
-    "Version": "1984"
-}
+DUMMY_PUSH_RESPONSE = {"Version": "1984"}
 
-DUMMY_PUSH_PARAMS = {
-    "METALLICA": "Ride The Lightning"
-}
+DUMMY_PUSH_PARAMS = {"METALLICA": "Ride The Lightning"}
 
-DUMMY_DELETE_PARAMS = {
-    "SLAYER": "Seasons in the Abyss"
-}
+DUMMY_DELETE_PARAMS = {"SLAYER": "Seasons in the Abyss"}
 
 DUMMY_PATH = "/metal/thrash"
 
@@ -44,10 +29,7 @@ def mock_boto_client() -> MagicMock:
 
 
 def test_parameter_store_fetch(mock_boto_client: MagicMock) -> None:
-    expected_params = {
-        "CAPITAN_AMERICA": "shield",
-        "THE_HULK": "smash!"
-    }
+    expected_params = {"CAPITAN_AMERICA": "shield", "THE_HULK": "smash!"}
 
     parameter_store = ParameterStore(DUMMY_PATH)
     params = parameter_store.fetch()
@@ -56,12 +38,8 @@ def test_parameter_store_fetch(mock_boto_client: MagicMock) -> None:
 
 
 def test_parameter_store_push(mock_boto_client: MagicMock) -> None:
-    expected_response = [
-        "Posted /metal/thrash/METALLICA -- version 1984"
-    ]
+    expected_response = ["Posted /metal/thrash/METALLICA -- version 1984"]
 
     parameter_store = ParameterStore(DUMMY_PATH)
     response = parameter_store.push(DUMMY_PUSH_PARAMS)
     assert response == expected_response
-
-
