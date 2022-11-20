@@ -2,7 +2,6 @@ from argparse import ArgumentParser
 from psenv.cli import version, fetch, push, init, show, validation, inject, new, destroy
 
 
-# Add your entry points / arguments in this function.....
 def parse_args():
     parser = ArgumentParser()
     sub_parsers = parser.add_subparsers(dest="command")
