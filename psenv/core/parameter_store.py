@@ -18,7 +18,7 @@ class ParameterStore:
     @staticmethod
     def _chunk_list(chunk_list: List[str], chunk_size: Optional[int] = 10):
         for i in range(0, len(chunk_list), chunk_size):
-            yield chunk_list[i : i + chunk_size]
+            yield chunk_list[i: i + chunk_size]
 
     def fetch(self) -> Dict[str, str]:
 
