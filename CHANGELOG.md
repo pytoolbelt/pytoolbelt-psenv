@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.0 (2022-11-19)
+### Feature
+* Add account validation ([`04bdf91`](https://github.com/JesseMaitland/psenv/commit/04bdf91e0069403f1587194823a44774e8c442ca))
+* Implement destory command ([`964fba6`](https://github.com/JesseMaitland/psenv/commit/964fba61422bbbbdb9961d5b0c13602d93703064))
+
 ## v0.15.0 (2022-11-18)
 ### Feature
 * Added templating parameters ([`69ba593`](https://github.com/JesseMaitland/psenv/commit/69ba593662cb2aa4e4442965a8f99d790b88f20f))

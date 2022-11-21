@@ -6,7 +6,7 @@ and should not be manually adjusted by a developer.
 from argparse import Namespace
 
 
-__version__ = "0.15.0"
+__version__ = "0.16.0"
 
 
 def version_entrypoint(cmd: Namespace) -> None:
