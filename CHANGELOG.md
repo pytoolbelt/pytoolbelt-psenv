@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.17.0 (2022-11-21)
+### Feature
+* Add account validation and admin checking ([`7b1076d`](https://github.com/JesseMaitland/psenv/commit/7b1076d6221cbb00f044110b11a042484c6366f6))
+
 ## v0.16.0 (2022-11-19)
 ### Feature
 * Add account validation ([`04bdf91`](https://github.com/JesseMaitland/psenv/commit/04bdf91e0069403f1587194823a44774e8c442ca))
