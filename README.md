@@ -84,8 +84,14 @@ populate the .env file with the secrets and parameters you need for your environ
 psenv push --env new_env
 ```
 
+## Private Environment Variables
+Sometimes a project my have some environment variable where the value is known up-front. (eg. Project Configs), however there
+may be some values which need to remain secret. After all, it would not make much sense for a developer to store there personal
+github token in the parameter store for others to copy and use. For this case we have the `#<private>` section in the `.env` file. 
 
-## Credential Injection
+All variables declared under the `#<private>` section in the `.env` file will be ignored automatically by `psenv`
+
+### Credential Injection
 Sometimes you might want to copy some environment variables from your current terminal session environment to a .env file.
 Example when you use temp AWS credentials and need to load them into more than one project / environment. To do this, get your creds however you normally would
 and then
@@ -95,3 +101,31 @@ psenv inject --prefix aws --env some_env
 ```
 
 all your aws credentials will be injected to your .env file! Like Magic!
+
+## Variable Templating
+When configuring an environment to be shared, it is sometimes helpful to give developers hints as to what type of private
+credentials will be needed to get the code to behave as expected. This is where templating comes in. 
+
+`psenv` allows you to define a placeholder in your `.env` file using the prefix `PSENV__TEMPLATE__`that will be templated upon running the `fetch` command.
+For example, we have a project that requires a github token, and we want to make this obvious for the next developer we onboard. In our source `.env` file, 
+we simply declare a variable called `PSENV__TEMPLATE__GITHUB_TOKEN`. We then run `psenv push --env <your-env>` to push these values to the parameter store. 
+
+```dotenv
+SOME_VARIABLE1=123
+SOME_VARIABLE2=234
+
+PSENV__TEMPLATE__GITHUB_TOKEN=<REPLACE-WITH-YOUR-PERSONAL-GH-TOKEN>
+```
+
+The next developer we on-board simply needs to run `psenv fetch --env <your-env>` and the below will be created. 
+```dotenv
+SOME_VARIABLE1=123
+SOME_VARIABLE2=234
+
+#<private>
+GITHUB_TOKEN=<REPLACE-WITH-YOUR-PERSONAL-GH-TOKEN>
+```
+
+If you would like to fetch the environment values without using the template function, you can pass the `--no-template` flag to the fetch
+command, which will then fetch the raw parameters as they were created. This is useful if an admin needs to add, or remove some parameter
+from an environment. 

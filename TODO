@@ -1,0 +1,8 @@
+1. create something to allow param diff. This should just return the diff between the parameter store and what is in
+the local .env file.
+
+2. create a push diff feature. A user wants to just push a parameter that has been added to a given environment to the
+parameter store, not overwrite the entire batch each time.
+
+3. create a destroy diff feature. This allows removing simply a single parameter from an environment from the parameter
+store. Currently to achieve this, a user must first delete the entire environment, and then re-push.
