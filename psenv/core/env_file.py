@@ -38,7 +38,7 @@ class EnvFile:
 
         for template_key in template_keys:
             template_value = self._main_params.pop(template_key)
-            private_key = template_key.lstrip(PSENV_TEMPLATE_PREFIX)
+            private_key = template_key.replace(PSENV_TEMPLATE_PREFIX, "")
 
             if private_key not in self._private_params.keys():
                 self._private_params.update(**{private_key: template_value})
