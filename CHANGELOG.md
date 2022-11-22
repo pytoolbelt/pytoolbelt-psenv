@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.17.1 (2022-11-22)
+### Fix
+* **templating:** Fix lstrip prefix bug in parameter templating ([`59f28eb`](https://github.com/JesseMaitland/psenv/commit/59f28eb3768d57df3271df8c399bf22e6d7330d8))
+
 ## v0.17.0 (2022-11-21)
 ### Feature
 * Add account validation and admin checking ([`7b1076d`](https://github.com/JesseMaitland/psenv/commit/7b1076d6221cbb00f044110b11a042484c6366f6))
