@@ -1,0 +1,21 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    desc: "List all tasks"
+    cmds:
+      - task --list --sort alphanumeric
+  test:
+    desc: "Run tests with pytest"
+    cmds:
+      - uv run pytest --cov=psenv tests/
+  format:
+    desc: "Format code with ruff"
+    cmds:
+      - uv run ruff format psenv/ tests/
+  sort:
+    desc: "Sort imports with ruff"
+    cmds:
+      - uv run ruff check psenv/ tests/ --fix

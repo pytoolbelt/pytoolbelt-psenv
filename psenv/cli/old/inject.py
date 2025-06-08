@@ -1,10 +1,10 @@
 from argparse import Namespace
-from psenv.core.env_file import EnvFile
+
 from psenv.core.config_file import ConfigFile
+from psenv.core.env_file import EnvFile
 
 
 def inject_entrypoint(cmd: Namespace) -> None:
-
     config_file = ConfigFile()
     environment = config_file.get_environment(cmd.env)
 

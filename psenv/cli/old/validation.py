@@ -1,10 +1,11 @@
-from argparse import ArgumentParser, Action, Namespace
+from argparse import Action, ArgumentParser, Namespace
 from typing import Any
+
 from psenv.core.config_file import ConfigFile
 
 
 def validate_input_string(input_string: str, message: str) -> None:
-    forbidden = "!" "#$%&'()*+,./:;<=>?@[\\]^`{|}~"
+    forbidden = "!#$%&'()*+,./:;<=>?@[\\]^`{|}~"
     for char in input_string:
         if char in forbidden:
             print(message)
@@ -12,7 +13,7 @@ def validate_input_string(input_string: str, message: str) -> None:
 
 
 def validate_path_name(path_string: str) -> None:
-    forbidden = "!" "#$%&'()*+,.:;<=>?@[\\]^`{|}~"
+    forbidden = "!#$%&'()*+,.:;<=>?@[\\]^`{|}~"
     for char in path_string:
         if char in forbidden:
             print(f"the character {char} is forbidden in path names.")
@@ -20,7 +21,7 @@ def validate_path_name(path_string: str) -> None:
 
 
 def validate_file_name(path_string: str) -> None:
-    forbidden = "!" "#$%&'()*+,:;<=>?@[\\]^`{|}~"
+    forbidden = "!#$%&'()*+,:;<=>?@[\\]^`{|}~"
     for char in path_string:
         if char in forbidden:
             print(f"the character {char} is forbidden in path names.")

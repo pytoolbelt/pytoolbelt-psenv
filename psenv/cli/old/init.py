@@ -1,9 +1,9 @@
 from argparse import Namespace
-from psenv.environment.config import PSENV_YML, PSENV_HOME, PSENV_ENV_FILE
+
+from psenv.environment.config import PSENV_ENV_FILE, PSENV_HOME, PSENV_YML
 
 
 def init_entrypoint(cmd: Namespace) -> None:
-
     PSENV_HOME.mkdir(exist_ok=True)
 
     if PSENV_YML.exists():

@@ -1,0 +1,51 @@
+from typing import Any, Dict, Iterable, Optional, Tuple
+
+import boto3
+from mypy_boto3_ssm import SSMClient
+
+from psenv.error_handling.exceptions import PsenvParameterStoreError
+
+
+class ParameterStoreClient:
+    def __init__(self, parameter_path: str, ssm_client: Optional[SSMClient] = None) -> None:
+        self._parameter_path = parameter_path
+        self._ssm = ssm_client or boto3.client("ssm")
+
+    @property
+    def ssm(self) -> SSMClient:
+        return self._ssm
+
+    @property
+    def parameter_path(self) -> str:
+        return self._parameter_path
+
+    @property
+    def get_params_kwargs(self) -> Dict[str, Any]:
+        return {"Path": self.parameter_path, "Recursive": True, "WithDecryption": True}
+
+    def put_params_kwargs(self, name: str, value: str) -> Dict[str, Any]:
+        return {"Name": f"{self.parameter_path}{name}", "Value": value, "Type": "SecureString", "Overwrite": True}
+
+    @staticmethod
+    def parse_parameter_name(name: str) -> str:
+        return name.split("/")[-1].upper()
+
+    def _get_parameters(self) -> Iterable[Tuple[str, str]]:
+        paginator = self.ssm.get_paginator("get_parameters_by_path")
+        try:
+            for page in paginator.paginate(**self.get_params_kwargs):
+                for parameter in page.get("Parameters", []):
+                    name = self.parse_parameter_name(parameter["Name"])
+                    yield name, parameter["Value"]
+        except Exception as e:
+            raise PsenvParameterStoreError from e
+
+    def get_parameters(self) -> Dict[str, str]:
+        return dict(self._get_parameters())
+
+    def put_parameters(self, parameters: Dict[str, str]) -> None:
+        try:
+            for name, value in parameters.items():
+                self.ssm.put_parameter(**self.put_params_kwargs(name, value))
+        except Exception as e:
+            raise PsenvParameterStoreError from e

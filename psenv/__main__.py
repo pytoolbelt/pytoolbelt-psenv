@@ -1,15 +1,12 @@
 from psenv.cli import parse_args
+from psenv.error_handling import handle_cli_errors
 
 
-def main():
-    cmd = parse_args()
-
-    if type(cmd.func) is list:
-        for func in cmd.func:
-            func(cmd)
-    else:
-        cmd.func(cmd)
+@handle_cli_errors
+def main() -> int:
+    cliargs = parse_args()
+    return cliargs.func(cliargs=cliargs)
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())

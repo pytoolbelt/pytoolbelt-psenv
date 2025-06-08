@@ -2,8 +2,10 @@ import os
 from io import StringIO
 from pathlib import Path
 from typing import Dict, TextIO
+
 from dotenv import dotenv_values
-from psenv.environment.config import PSENV_TEMPLATE_PREFIX, PSENV_PRIVATE_MARKER
+
+from psenv.environment.config import PSENV_PRIVATE_MARKER, PSENV_TEMPLATE_PREFIX
 
 
 class EnvFile:
@@ -44,7 +46,6 @@ class EnvFile:
                 self._private_params.update(**{private_key: template_value})
 
     def _write_param_to_file(self, key: str, value: str, env: TextIO) -> None:
-
         prefix = key.split("_")[0]
         if prefix != self._prefix:
             self._prefix = prefix

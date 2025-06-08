@@ -1,0 +1,20 @@
+# This is a
+
+envfile: /path/to/psenv/env/file  # this will be loaded for use by the tool
+root_path: /some/param/path       # the root path for the parameters in the aws parameter store
+
+environments:
+  - name: dev
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here
+
+  - name: int
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here
+
+  - name: prd
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here

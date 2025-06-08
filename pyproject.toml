@@ -1,28 +1,29 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
 [project]
 name = "psenv"
 version = "0.17.1"
-description = ""
+description = "A tool for managing AWS Parameter Store environments"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-	"python-dotenv==0.20.0",
-	"pyaml==21.10.1",
-	"boto3==1.20.49",
-	"prettytable==3.4.1"
+	"python-dotenv==1.1.0",
+	"pyyaml==6.0.2",
+	"boto3==1.38.32",
+	"prettytable==3.4.1",
+	"structlog==25.4.0",
+	"pydantic==2.11.5"
 ]
 
 [project.optional-dependencies]
 dev = [
-	"setuptools==63.1.0",
-	"build==0.8.0",
-	"python-semantic-release==7.29.4",
-	"pytest==7.1.2",
-	"black==22.6.0"
+	"pytest==8.4.0",
+	"pytest-cov==6.1.1",
+	"ruff==0.11.13",
+	"boto3-stubs[ssm]==1.38.32"
 ]
 
 
@@ -30,14 +31,11 @@ dev = [
 psenv = "psenv.__main__:main"
 
 
-[tool.setuptools.packages.find]
-exclude = ["tests*"]
 
-[tool.semantic_release]
-version_variable = "psenv/cli/version.py:__version__"
-version_toml = "pyproject.toml:project.version"
-version_pattern = "README.md:VERSION {version}"
-upload_to_pypi = true
+[tool.ruff]
+line-length = 160
+fix = true
 
-[tool.black]
-line_length = 120
+[tool.ruff.lint]
+select = ["I", "F401"]
+

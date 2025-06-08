@@ -1,5 +1,7 @@
 from argparse import Namespace
+
 from prettytable import PrettyTable
+
 from psenv.core.config_file import ConfigFile
 
 

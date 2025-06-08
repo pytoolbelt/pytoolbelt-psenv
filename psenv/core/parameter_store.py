@@ -1,5 +1,6 @@
+from typing import Dict, Generator, List, Optional
+
 import boto3
-from typing import Dict, List, Optional, Generator
 
 
 class ParameterStore:
@@ -21,12 +22,10 @@ class ParameterStore:
             yield chunk_list[i : i + chunk_size]
 
     def fetch(self) -> Dict[str, str]:
-
         params = {}
         next_token = ""
 
         while True:
-
             fetch_kwargs = {"Path": self.path, "Recursive": True, "WithDecryption": True}
 
             if next_token:

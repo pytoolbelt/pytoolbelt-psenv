@@ -1,4 +1,5 @@
 from argparse import Namespace
+
 from psenv.core.config_file import ConfigFile
 from psenv.core.parameter_store import ParameterStore
 from psenv.utils.cli import validate_account, validate_admin
@@ -15,7 +16,6 @@ def destroy_entrypoint(cmd: Namespace) -> None:
     delete_generator = parameter_store.delete(params)
 
     while True:
-
         try:
             responses = next(delete_generator)
         except StopIteration:

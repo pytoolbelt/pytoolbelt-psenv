@@ -1,0 +1,18 @@
+
+envfile: /path/to/tool/env/file
+root_path: /some/param/path
+environments:
+  - name: dev
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here
+
+  - name: int
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here
+
+  - name: prd
+    account: 123456789123
+    envfile: path/to/env/file
+    path: /optional/env/path/here

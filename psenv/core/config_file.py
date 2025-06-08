@@ -1,6 +1,8 @@
-import yaml
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
+
+import yaml
+
 from psenv.environment.config import PSENV_YML
 
 
