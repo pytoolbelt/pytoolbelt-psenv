@@ -57,3 +57,4 @@ coverage.xml
 *.egg-info
 venv
 .pytest_cache
+*.env

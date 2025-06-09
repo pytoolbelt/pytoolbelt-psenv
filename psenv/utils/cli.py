@@ -2,7 +2,7 @@ from typing import Any, Callable
 
 import boto3
 
-from psenv.environment.variables import PSENV_AWS_ACCOUNT_ID, PSENV_AWS_ARN_NAME
+from psenv.environment.variables import PSENV_AWS_ACCOUNT_ID
 
 
 def validate_account(func: Callable) -> Callable:

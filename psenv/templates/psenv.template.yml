@@ -2,9 +2,10 @@
 
 envfile: /path/to/psenv/env/file  # this will be loaded for use by the tool
 root_path: /some/param/path       # the root path for the parameters in the aws parameter store
-
+root_kms_key: "some-kms-key-id"        # optional kms key id. This will be used in all accounts unless overridden in environments
 environments:
   - name: dev
+    kms-key: "some-kms-key-id"  # optional, this will override the root kms_key
     account: 123456789123
     envfile: path/to/env/file
     path: /optional/env/path/here

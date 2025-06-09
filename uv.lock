@@ -43,6 +43,9 @@ wheels = [
 ssm = [
     { name = "mypy-boto3-ssm" },
 ]
+sts = [
+    { name = "mypy-boto3-sts" },
+]
 
 [[package]]
 name = "botocore"
@@ -191,6 +194,18 @@ wheels = [
 ]
 
 [[package]]
+name = "mypy-boto3-sts"
+version = "1.38.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/51/24/638ceabff74e07855b59c3bb863b0c11e69ff7ec8fa8678ff6db9ee38318/mypy_boto3_sts-1.38.0.tar.gz", hash = "sha256:143a96f06bd17ec4bbb120e04b65e646cb4345e2d0d4c3c596f8aa0458d12707", size = 16561, upload-time = "2025-04-22T21:35:39.729Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/99/1b/532ec318c368a3e34c18b92f3cf9254e571dc32e150e400f323d73ba3159/mypy_boto3_sts-1.38.0-py3-none-any.whl", hash = "sha256:61d7ef65677be52cc0e369e359c41ced12b4cc3919f550905af5f480806b89b4", size = 20125, upload-time = "2025-04-22T21:35:38.625Z" },
+]
+
+[[package]]
 name = "packaging"
 version = "25.0"
 source = { registry = "https://pypi.org/simple" }
@@ -235,7 +250,7 @@ dependencies = [
 
 [package.optional-dependencies]
 dev = [
-    { name = "boto3-stubs", extra = ["ssm"] },
+    { name = "boto3-stubs", extra = ["ssm", "sts"] },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
@@ -244,7 +259,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "boto3", specifier = "==1.38.32" },
-    { name = "boto3-stubs", extras = ["ssm"], marker = "extra == 'dev'", specifier = "==1.38.32" },
+    { name = "boto3-stubs", extras = ["ssm", "sts"], marker = "extra == 'dev'", specifier = "==1.38.32" },
     { name = "prettytable", specifier = "==3.4.1" },
     { name = "pydantic", specifier = "==2.11.5" },
     { name = "pytest", marker = "extra == 'dev'", specifier = "==8.4.0" },

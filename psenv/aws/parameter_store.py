@@ -7,9 +7,10 @@ from psenv.error_handling.exceptions import PsenvParameterStoreError
 
 
 class ParameterStoreClient:
-    def __init__(self, parameter_path: str, ssm_client: Optional[SSMClient] = None) -> None:
+    def __init__(self, parameter_path: str, ssm_client: Optional[SSMClient] = None, kms_key: Optional[str] = None) -> None:
         self._parameter_path = parameter_path
         self._ssm = ssm_client or boto3.client("ssm")
+        self._kms_key = kms_key or "alias/aws/ssm"  # TODO: check if this is the right default
 
     @property
     def ssm(self) -> SSMClient:

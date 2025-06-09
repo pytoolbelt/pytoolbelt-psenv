@@ -23,7 +23,7 @@ dev = [
 	"pytest==8.4.0",
 	"pytest-cov==6.1.1",
 	"ruff==0.11.13",
-	"boto3-stubs[ssm]==1.38.32"
+	"boto3-stubs[ssm, sts]==1.38.32"
 ]
 
 

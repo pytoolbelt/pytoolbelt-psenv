@@ -37,4 +37,5 @@ def handle_cli_errors(func: Callable) -> Callable:
 
         except exceptions.PsenvConfigError as e:
             return error_handler.handle(e)
+
     return wrapper

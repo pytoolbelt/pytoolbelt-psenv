@@ -1,13 +1,17 @@
 from argparse import ArgumentParser, Namespace
-from pathlib import Path
 from importlib import metadata
+from pathlib import Path
 from types import ModuleType
 from typing import List
+
 from psenv.paths import PSENV_CONFIG_FILE_PATH
 
-from . import config
+from . import config, get
 
-COMMANDS = [config]
+COMMANDS = [
+    config,
+    get
+]
 
 
 def commands() -> List[ModuleType]:
@@ -17,19 +21,13 @@ def commands() -> List[ModuleType]:
 def parse_args() -> Namespace:
     parser = ArgumentParser()
     parser.add_argument(
-        "-v", "--version",
+        "-v",
+        "--version",
         action="version",
         version=f"psenv :: {metadata.version('psenv')} :: AWS Parameter Store Environment Manager",
     )
 
-    parser.add_argument(
-        "-c", "--config",
-        help="Path to the psenv configuration file.",
-        type=Path,
-        required=False,
-        default=PSENV_CONFIG_FILE_PATH,
-        metavar=""
-    )
+    parser.add_argument("-c", "--config", help="Path to the psenv configuration file.", type=Path, required=False, default=PSENV_CONFIG_FILE_PATH, metavar="")
 
     subparsers = parser.add_subparsers(dest="command")
     subparsers.required = True
