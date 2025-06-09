@@ -3,6 +3,10 @@ from pathlib import Path
 from typing import Any
 from psenv.paths import PSENV_CONFIG_FILE_PATH
 from psenv.error_handling.exceptions import PsenvConfigError
+from psenv import fileio
+import structlog
+
+logger = structlog.get_logger(__name__)
 
 class ValidatePathAction(Action):
     def __call__(self, parser, namespace, values: Path, option_string=None):
@@ -35,7 +39,11 @@ def configure_parser(subparser: Any) -> None:
         action=ValidatePathAction,
     )
 
+
 def new_config(cliargs: Namespace) -> int:
-    print("new config entrypoint")
-    print(cliargs)
+    logger.info("Creating new psenv configuration file", path=cliargs.path)
+    template = fileio.read_config_template()
+    fileio.write_config(cliargs.path, template)
     return 0
+
+def show_config

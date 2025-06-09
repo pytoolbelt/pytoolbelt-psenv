@@ -6,3 +6,7 @@ class PsenvConfigNotFoundError(Exception):
 
 class PsenvConfigError(Exception):
     pass
+
+class PsenvInternalError(Exception):
+    """Raised for internal errors in psenv."""
+    pass

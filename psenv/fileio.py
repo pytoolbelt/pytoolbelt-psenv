@@ -2,7 +2,7 @@ import os
 import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional
-from psenv.error_handling.exceptions import PsenvConfigNotFoundError, PsenvConfigError
+from psenv.error_handling.exceptions import PsenvConfigNotFoundError, PsenvConfigError, PsenvInternalError
 from psenv.paths import PSENV_TEMPLATE_FILE_PATH
 
 def read_config(path: Path) -> Dict[str, Any]:
@@ -18,4 +18,13 @@ def read_config(path: Path) -> Dict[str, Any]:
 
 def read_config_template(path: Optional[Path] = None) -> str:
     path = path or PSENV_TEMPLATE_FILE_PATH
-    return path.absolute().read_text()
+    try:
+        return path.absolute().read_text()
+    except FileNotFoundError:
+        raise PsenvInternalError(f"psenv template file not found at {path}. Please file a bug report.")
+
+def write_config(path: Path, content: str) -> None:
+    path = path.absolute()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.touch(exist_ok=True)
+    path.write_text(content)
