@@ -8,10 +8,7 @@ from psenv.paths import PSENV_CONFIG_FILE_PATH
 
 from . import config, get
 
-COMMANDS = [
-    config,
-    get
-]
+COMMANDS = [config, get]
 
 
 def commands() -> List[ModuleType]:

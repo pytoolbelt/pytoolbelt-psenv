@@ -33,7 +33,7 @@ psenv = "psenv.__main__:main"
 
 
 [tool.ruff]
-line-length = 160
+line-length = 140
 fix = true
 
 [tool.ruff.lint]

@@ -5,6 +5,7 @@ from mypy_boto3_sts import STSClient
 from mypy_boto3_sts.type_defs import GetCallerIdentityResponseTypeDef
 from psenv.error_handling.exceptions import PsenvInternalError, PsenvInvalidAccountError
 
+
 class StsClient:
     def __init__(self, sts_client: Optional[STSClient] = None) -> None:
         self._sts = sts_client or boto3.client("sts")

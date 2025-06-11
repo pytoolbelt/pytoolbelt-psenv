@@ -11,7 +11,7 @@ from psenv.fileio import read_config
 # TODO: kms key should be a regex pattern
 class Environment(BaseModel):
     name: str
-    account: str  #TODO: regex this for aws account id
+    account: str  # TODO: regex this for aws account id
     envfile: str
     kms_key: Optional[str] = None
     path: Optional[str]
@@ -19,8 +19,19 @@ class Environment(BaseModel):
     @field_validator("account")
     def validate_account(cls, value: str) -> str:
         if not value.isdigit() or len(value) != 12:
-            raise ValueError("AWS account ID must be a 12-digit numeric string.")
+            raise PsenvConfigError("AWS account ID must be a 12-digit numeric string.")
         return value
+
+    @field_validator("path")
+    def validate_path(cls, value: Optional[str]) -> Optional[str]:
+        if value and not value.startswith("/"):
+            raise PsenvConfigError("Path must start with '/'.")
+
+    @field_validator("kms_key")
+    def validate_kms_key(cls, value: Optional[str]) -> Optional[str]:
+        if value and not value.startswith("alias/"):
+            raise PsenvConfigError("KMS key must start with 'alias/'.")
+
 
 class PsenvConfig(BaseModel):
     envfile: str
@@ -28,11 +39,37 @@ class PsenvConfig(BaseModel):
     root_kms_key: Optional[str] = None
     environments: List[Environment]
 
-    def get_environment(self, name: str) -> Environment:
+    @field_validator("root_path")
+    def validate_path(cls, value: str) -> Optional[str]:
+        if not value.startswith("/"):
+            raise PsenvConfigError("Path must start with '/'.")
+
+    @field_validator("root_kms_key")
+    def validate_kms_key(cls, value: Optional[str]) -> Optional[str]:
+        if value and not value.startswith("alias/"):
+            raise PsenvConfigError("KMS key must start with 'alias/'.")
+
+    def get_config_environment(self, name: str) -> "ConfigEnvironment":
         for env in self.environments:
             if env.name == name:
-                return env
+                return ConfigEnvironment(config=self, environment=env)
         raise PsenvConfigError(f"Environment '{name}' not found in configuration.")
+
+
+class ConfigEnvironment(BaseModel):
+    config: PsenvConfig
+    environment: Environment
+
+    @property
+    def parameter_path(self) -> str:
+        if self.environment.path:
+            return f"{self.config.root_path}/{self.environment.name}{self.environment.path}"
+        return self.config.root_path
+
+    @property
+    def kms_key(self) -> Optional[str]:
+        return self.environment.kms_key or self.config.root_kms_key
+
 
 def load_config(path: Optional[Path] = None) -> PsenvConfig:
     path = path or PSENV_CONFIG_FILE_PATH

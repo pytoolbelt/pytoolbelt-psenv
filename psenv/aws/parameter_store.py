@@ -10,7 +10,7 @@ class ParameterStoreClient:
     def __init__(self, parameter_path: str, ssm_client: Optional[SSMClient] = None, kms_key: Optional[str] = None) -> None:
         self._parameter_path = parameter_path
         self._ssm = ssm_client or boto3.client("ssm")
-        self._kms_key = kms_key or "alias/aws/ssm"  # TODO: check if this is the right default
+        self._kms_key = kms_key
 
     @property
     def ssm(self) -> SSMClient:
@@ -21,11 +21,19 @@ class ParameterStoreClient:
         return self._parameter_path
 
     @property
+    def kms_key(self) -> str:
+        return self._kms_key or "alias/aws/ssm"
+
+    @property
     def get_params_kwargs(self) -> Dict[str, Any]:
-        return {"Path": self.parameter_path, "Recursive": True, "WithDecryption": True}
+        return {
+            "Path": self.parameter_path,
+            "Recursive": True,
+            "WithDecryption": True,
+        }
 
     def put_params_kwargs(self, name: str, value: str) -> Dict[str, Any]:
-        return {"Name": f"{self.parameter_path}{name}", "Value": value, "Type": "SecureString", "Overwrite": True}
+        return {"Name": f"{self.parameter_path}/{name}", "Value": value, "Type": "SecureString", "Overwrite": True, "KeyId": self.kms_key}
 
     @staticmethod
     def parse_parameter_name(name: str) -> str:
