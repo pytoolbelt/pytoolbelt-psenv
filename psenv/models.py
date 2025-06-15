@@ -43,11 +43,13 @@ class PsenvConfig(BaseModel):
     def validate_path(cls, value: str) -> Optional[str]:
         if not value.startswith("/"):
             raise PsenvConfigError("Path must start with '/'.")
+        return value
 
     @field_validator("root_kms_key")
     def validate_kms_key(cls, value: Optional[str]) -> Optional[str]:
         if value and not value.startswith("alias/"):
             raise PsenvConfigError("KMS key must start with 'alias/'.")
+        return value
 
     def get_config_environment(self, name: str) -> "ConfigEnvironment":
         for env in self.environments:

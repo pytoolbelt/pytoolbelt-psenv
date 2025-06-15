@@ -29,16 +29,19 @@ def get_parameters(cliargs: Namespace) -> int:
     load_dotenv(config.envfile)
 
     # Fetch config for the specified environment
-    env = config.get_config_environment(cliargs.env)
+    config_env = config.get_config_environment(cliargs.env)
 
     # if we are not in the expected account from the parent session, raise an error
     sts = aws.StsClient()
-    sts.raise_if_invalid_account(env.account)
+    sts.raise_if_invalid_account(config_env.environment.account)
 
     # Fetch parameters from the parameter store
-    parameters = aws.ParameterStoreClient(parameter_path=env.parameter_path, kms_key=env.kms_key).get_parameters()
+    parameters = aws.ParameterStoreClient(
+        parameter_path=config_env.parameter_path,
+        kms_key=config_env.kms_key
+    ).get_parameters()
 
-    env_file = fileio.EnvFile(Path(env.envfile))
+    env_file = fileio.EnvFile(Path(config_env.environment   .envfile))
     env_file.load()
 
     env_file.update_params(parameters, "main")

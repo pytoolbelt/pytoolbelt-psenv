@@ -47,7 +47,7 @@ class ParameterStoreClient:
                     name = self.parse_parameter_name(parameter["Name"])
                     yield name, parameter["Value"]
         except Exception as e:
-            raise PsenvParameterStoreError from e
+            raise PsenvParameterStoreError(f"Error fetching parameters {e}") from e
 
     def get_parameters(self) -> Dict[str, str]:
         return dict(self._get_parameters())
