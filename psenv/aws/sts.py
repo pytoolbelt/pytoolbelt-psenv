@@ -1,8 +1,9 @@
-import boto3
 from typing import Optional
 
+import boto3
 from mypy_boto3_sts import STSClient
 from mypy_boto3_sts.type_defs import GetCallerIdentityResponseTypeDef
+
 from psenv.error_handling.exceptions import PsenvInternalError, PsenvInvalidAccountError
 
 

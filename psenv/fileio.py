@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional, TextIO
 
 import yaml
-from dotenv import dotenv_values, set_key
+from dotenv import dotenv_values
 
 from psenv.config import PSENV_PRIVATE_MARKER
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
@@ -17,7 +17,9 @@ def read_config(path: Path) -> Dict[str, Any]:
         content = os.path.expandvars(path.read_text())
         return yaml.safe_load(content)
     except FileNotFoundError:
-        raise PsenvConfigNotFoundError(f"psenv.yml not found in {path.as_posix()}. Please check the path or create a new configuration file.")
+        raise PsenvConfigNotFoundError(
+            f"psenv.yml not found in {path.as_posix()}. Please check the path or create a new configuration file."
+        )
     except yaml.YAMLError as e:
         raise PsenvConfigError("Error loading psenv.yml") from e
 
@@ -46,6 +48,10 @@ class EnvFile:
         if not self.path.exists():
             self.path.parent.mkdir(parents=True, exist_ok=True)
             self.path.touch(exist_ok=True)
+
+    @property
+    def local_params(self) -> Dict[str, str]:
+        return self._main_params
 
     @staticmethod
     def _split_sections(content: str) -> tuple[str, str]:

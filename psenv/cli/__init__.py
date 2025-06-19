@@ -24,7 +24,15 @@ def parse_args() -> Namespace:
         version=f"psenv :: {metadata.version('psenv')} :: AWS Parameter Store Environment Manager",
     )
 
-    parser.add_argument("-c", "--config", help="Path to the psenv configuration file.", type=Path, required=False, default=PSENV_CONFIG_FILE_PATH, metavar="")
+    parser.add_argument(
+        "-c",
+        "--config",
+        help="Path to the psenv configuration file.",
+        type=Path,
+        required=False,
+        default=PSENV_CONFIG_FILE_PATH,
+        metavar="",
+    )
 
     subparsers = parser.add_subparsers(dest="command")
     subparsers.required = True

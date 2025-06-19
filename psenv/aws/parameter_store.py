@@ -24,6 +24,12 @@ class ParameterStoreClient:
     def kms_key(self) -> str:
         return self._kms_key or "alias/aws/ssm"
 
+    @overwrite.setter
+    def overwrite(self, value: bool) -> None:
+        if not isinstance(value, bool):
+            raise ValueError("Overwrite must be a boolean value.")
+        self._overwrite = value
+
     @property
     def get_params_kwargs(self) -> Dict[str, Any]:
         return {
@@ -32,8 +38,8 @@ class ParameterStoreClient:
             "WithDecryption": True,
         }
 
-    def put_params_kwargs(self, name: str, value: str) -> Dict[str, Any]:
-        return {"Name": f"{self.parameter_path}/{name}", "Value": value, "Type": "SecureString", "Overwrite": True, "KeyId": self.kms_key}
+    def put_params_kwargs(self, name: str, value: str, overwrite: bool) -> Dict[str, Any]:
+        return {"Name": f"{self.parameter_path}/{name}", "Value": value, "Type": "SecureString", "Overwrite": overwrite, "KeyId": self.kms_key}
 
     @staticmethod
     def parse_parameter_name(name: str) -> str:
@@ -52,9 +58,12 @@ class ParameterStoreClient:
     def get_parameters(self) -> Dict[str, str]:
         return dict(self._get_parameters())
 
-    def put_parameters(self, parameters: Dict[str, str]) -> None:
+    def put_parameters(self, parameters: Dict[str, str], overwrite: bool = False) -> None:
         try:
             for name, value in parameters.items():
                 self.ssm.put_parameter(**self.put_params_kwargs(name, value))
         except Exception as e:
             raise PsenvParameterStoreError from e
+
+    def delete_parameters(self, parameters: Dict[str, str]) -> None:
+        pass

@@ -1,16 +1,20 @@
 from argparse import Namespace
 from pathlib import Path
 from typing import Any
-from dotenv import load_dotenv
+
 import structlog
-from psenv.models import load_config
+from dotenv import load_dotenv
+
 from psenv import aws, fileio
+from psenv.models import load_config
 
 logger = structlog.get_logger(__name__)
 
 
 def configure_parser(subparser: Any) -> None:
-    get_parser = subparser.add_parser(name="get", description="Manage psenv configurations.", help="Get parameters from the parameter store.")
+    get_parser = subparser.add_parser(
+        name="get", description="Manage psenv configurations.", help="Get parameters from the parameter store."
+    )
     get_parser.set_defaults(func=get_parameters)
 
     get_parser.add_argument(
@@ -36,12 +40,9 @@ def get_parameters(cliargs: Namespace) -> int:
     sts.raise_if_invalid_account(config_env.environment.account)
 
     # Fetch parameters from the parameter store
-    parameters = aws.ParameterStoreClient(
-        parameter_path=config_env.parameter_path,
-        kms_key=config_env.kms_key
-    ).get_parameters()
+    parameters = aws.ParameterStoreClient(parameter_path=config_env.parameter_path, kms_key=config_env.kms_key).get_parameters()
 
-    env_file = fileio.EnvFile(Path(config_env.environment   .envfile))
+    env_file = fileio.EnvFile(Path(config_env.environment.envfile))
     env_file.load()
 
     env_file.update_params(parameters, "main")
