@@ -6,9 +6,9 @@ from typing import List
 
 from psenv.paths import PSENV_CONFIG_FILE_PATH
 
-from . import config, get, put
+from . import config, get, put, exec
 
-COMMANDS = [config, get, put]
+COMMANDS = [config, get, put, exec]
 
 
 def commands() -> List[ModuleType]:

@@ -24,12 +24,6 @@ class ParameterStoreClient:
     def kms_key(self) -> str:
         return self._kms_key or "alias/aws/ssm"
 
-    @overwrite.setter
-    def overwrite(self, value: bool) -> None:
-        if not isinstance(value, bool):
-            raise ValueError("Overwrite must be a boolean value.")
-        self._overwrite = value
-
     @property
     def get_params_kwargs(self) -> Dict[str, Any]:
         return {
