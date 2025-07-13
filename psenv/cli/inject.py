@@ -1,17 +1,20 @@
 from argparse import Namespace
+from pathlib import Path
 from typing import Any
 
 import structlog
 
-from psenv.context import Context
-from psenv.fileio import get_environment_variables
+from psenv.models import load_config
+from psenv.fileio import get_environment_variables, EnvFile
 
 logger = structlog.get_logger(__name__)
 
 
 def configure_parser(subparser: Any) -> None:
     inject_parser = subparser.add_parser(
-        name="inject", description="Inject environment variables from your session to an .env file", help="Inject environment variables to an .env file"
+        name="inject",
+        description="Inject environment variables from your session to an .env file",
+        help="Inject environment variables to an .env file"
     )
     inject_parser.set_defaults(func=inject_parameters)
 
@@ -21,8 +24,9 @@ def configure_parser(subparser: Any) -> None:
 def inject_parameters(cliargs: Namespace) -> None:
     logger.info("Putting parameters into the parameter store for environment:", config=cliargs.config)
 
-    ctx = Context.from_cliargs(cliargs)
+    config = load_config(cliargs.config)
+    env_file = EnvFile(Path(config.envfile))
 
     env_vars = get_environment_variables(cliargs.prefix)
-    ctx.env_file.update_params(env_vars, section="private")
-    ctx.env_file.write_params()
+    env_file.update_params(env_vars, section="private")
+    env_file.write_params()
