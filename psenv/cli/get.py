@@ -1,9 +1,7 @@
 from argparse import Namespace
-from pathlib import Path
 from typing import Any
 
 import structlog
-from dotenv import load_dotenv
 
 from psenv.context import Context
 
