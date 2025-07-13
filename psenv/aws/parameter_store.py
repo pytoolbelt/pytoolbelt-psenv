@@ -53,11 +53,16 @@ class ParameterStoreClient:
         return dict(self._get_parameters())
 
     def put_parameters(self, parameters: Dict[str, str], overwrite: bool = False) -> None:
-        try:
-            for name, value in parameters.items():
-                self.ssm.put_parameter(**self.put_params_kwargs(name, value))
-        except Exception as e:
-            raise PsenvParameterStoreError from e
+        for name, value in parameters.items():
+            try:
+                self.ssm.put_parameter(**self.put_params_kwargs(name, value, overwrite))
+            except Exception as e:
+                raise PsenvParameterStoreError(f"Error putting Parameters: {e}") from e
 
     def delete_parameters(self, parameters: Dict[str, str]) -> None:
-        pass
+        for name in parameters:
+            try:
+                print(f"deleting:::::{self.parameter_path}/{name}")
+                self.ssm.delete_parameter(Name=f"{self.parameter_path}/{name}")
+            except Exception as e:
+                raise PsenvParameterStoreError(f"Error deleting parameter {name}: {e}") from e

@@ -26,6 +26,7 @@ class Environment(BaseModel):
     def validate_path(cls, value: Optional[str]) -> Optional[str]:
         if value and not value.startswith("/"):
             raise PsenvConfigError("Path must start with '/'.")
+        return value
 
     @field_validator("kms_key")
     def validate_kms_key(cls, value: Optional[str]) -> Optional[str]:

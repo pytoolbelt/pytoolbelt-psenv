@@ -51,7 +51,8 @@ def put_parameters(cliargs: Namespace) -> None:
         ctx.ps_client.put_parameters(param_diff.to_update, overwrite=True)
 
         logger.info("Removing parameters that are not in the local environment file.")
-        ctx.ps_client.delete_parameters(param_diff.to_remove)
+        deleted = ctx.ps_client.delete_parameters(param_diff.to_remove)
+
 
     elif cliargs.mode == "add" and not cliargs.overwrite:
         logger.info("Adding new parameters to the parameter store.")
@@ -62,4 +63,3 @@ def put_parameters(cliargs: Namespace) -> None:
         ctx.ps_client.put_parameters(param_diff.to_add)
         ctx.ps_client.put_parameters(param_diff.to_update, overwrite=True)
 
-    return 1
