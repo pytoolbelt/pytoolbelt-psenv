@@ -39,6 +39,15 @@ def write_config(path: Path, content: str) -> None:
     path.write_text(content)
 
 
+def get_environment_variables(prefix: str) -> Dict[str, str]:
+    retrieved = {}
+    prefix = prefix.upper()
+    for key, value in os.environ.items():
+        if key.startswith(prefix):
+            retrieved[key] = value
+    return retrieved
+
+
 class EnvFile:
     def __init__(self, path: Path) -> None:
         self.path = path.expanduser().absolute()

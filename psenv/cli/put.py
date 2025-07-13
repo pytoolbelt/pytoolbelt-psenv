@@ -6,7 +6,6 @@ import structlog
 from psenv.context import Context
 from psenv import diff
 
-from pathlib import Path
 logger = structlog.get_logger(__name__)
 
 
