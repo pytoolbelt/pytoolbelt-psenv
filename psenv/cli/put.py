@@ -3,8 +3,8 @@ from typing import Any
 
 import structlog
 
-from psenv.context import Context
-from psenv import diff
+from psenv.core import diff
+from psenv.core.context import Context
 
 logger = structlog.get_logger(__name__)
 
@@ -52,7 +52,6 @@ def put_parameters(cliargs: Namespace) -> None:
         logger.info("Removing parameters that are not in the local environment file.")
         deleted = ctx.ps_client.delete_parameters(param_diff.to_remove)
 
-
     elif cliargs.mode == "add" and not cliargs.overwrite:
         logger.info("Adding new parameters to the parameter store.")
         ctx.ps_client.put_parameters(param_diff.to_add)
@@ -61,4 +60,3 @@ def put_parameters(cliargs: Namespace) -> None:
         logger.info("Overwriting existing parameters in the parameter store.")
         ctx.ps_client.put_parameters(param_diff.to_add)
         ctx.ps_client.put_parameters(param_diff.to_update, overwrite=True)
-

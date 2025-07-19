@@ -33,7 +33,13 @@ class ParameterStoreClient:
         }
 
     def put_params_kwargs(self, name: str, value: str, overwrite: bool) -> Dict[str, Any]:
-        return {"Name": f"{self.parameter_path}/{name}", "Value": value, "Type": "SecureString", "Overwrite": overwrite, "KeyId": self.kms_key}
+        return {
+            "Name": f"{self.parameter_path}/{name}",
+            "Value": value,
+            "Type": "SecureString",
+            "Overwrite": overwrite,
+            "KeyId": self.kms_key,
+        }
 
     @staticmethod
     def parse_parameter_name(name: str) -> str:

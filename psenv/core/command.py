@@ -1,16 +1,10 @@
-from subprocess import Popen, PIPE
-import shlex
-from typing import Dict, List, Union, Optional
 import os
-from subprocess import Popen, PIPE
-import shlex
-import sys
-from typing import Dict, List, Union
+from subprocess import PIPE, Popen
+from typing import Dict, List, Optional
 
 
 class Command(Popen):
     def __init__(self, command: List[str], env: Optional[Dict[str, str]] = None) -> None:
-
         if command[0] == "--":
             command.pop(0)
 
@@ -19,9 +13,9 @@ class Command(Popen):
             env=env or os.environ.copy(),  # Use provided env or inherit from parent
             stdout=None,  # None means inherit from parent process
             stderr=PIPE,  # Capture stderr for error checking
-            text=True,    # Return strings instead of bytes
-            bufsize=1,    # Line buffered
-            universal_newlines=True
+            text=True,  # Return strings instead of bytes
+            bufsize=1,  # Line buffered
+            universal_newlines=True,
         )
         self.command = command
         self.env = env

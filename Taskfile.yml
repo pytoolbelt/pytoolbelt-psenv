@@ -7,6 +7,26 @@ tasks:
     desc: "List all tasks"
     cmds:
       - task --list --sort alphanumeric
+  remove-venv:
+    desc: "Remove the virtual environment"
+    cmds:
+      - rm -rf .venv
+  venv:
+    desc: Create a virtual environment with uv
+    cmds:
+      - uv venv .venv
+  install-dev:
+    desc: "Install development dependencies"
+    cmds:
+      - uv sync --extra dev
+  setup:
+    desc: "Set up the project for development"
+    cmds:
+      - task remove-venv
+      - task venv
+      - task install-dev
+      - echo "Project setup complete. Activate the virtual environment with 'source .venv/bin/activate'."
+
   test:
     desc: "Run tests with pytest"
     cmds:

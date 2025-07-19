@@ -3,7 +3,7 @@ from typing import Any
 
 import structlog
 
-from psenv.context import Context
+from psenv.core.context import Context
 
 logger = structlog.get_logger(__name__)
 

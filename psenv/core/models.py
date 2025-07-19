@@ -4,8 +4,8 @@ from typing import List, Optional
 from pydantic import BaseModel, ValidationError, field_validator
 
 from psenv.error_handling.exceptions import PsenvConfigError
-from psenv.fileio import read_config
-from psenv.paths import PSENV_CONFIG_FILE_PATH
+from psenv.core.fileio import read_config
+from psenv.core.paths import PSENV_CONFIG_FILE_PATH
 
 
 # TODO: kms key should be a regex pattern

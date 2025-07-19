@@ -1,12 +1,13 @@
-from pathlib import Path
-from psenv import aws, fileio, models
-from dotenv import load_dotenv
 from argparse import Namespace
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+from psenv import aws
+from psenv.core import fileio, models
 
 class Context:
-
     def __init__(self, env: str, config: Path) -> None:
-
         # Load the configuration file and get the environment configuration
         self.config = models.load_config(config)
         self.config_env = self.config.get_config_environment(env)
@@ -23,13 +24,9 @@ class Context:
         self.env_file.load()
 
         # Initialize the Parameter Store client with the parameter path and KMS key from the config
-        self.ps_client = aws.ParameterStoreClient(
-            parameter_path=self.config_env.parameter_path,
-            kms_key=self.config_env.kms_key
-        )
-
+        self.ps_client = aws.ParameterStoreClient(parameter_path=self.config_env.parameter_path, kms_key=self.config_env.kms_key)
 
     @classmethod
-    def from_cliargs(cls, cliargs: Namespace) -> 'Context':
+    def from_cliargs(cls, cliargs: Namespace) -> "Context":
         """Create a Context instance from command line arguments."""
         return cls(env=cliargs.env, config=cliargs.config)

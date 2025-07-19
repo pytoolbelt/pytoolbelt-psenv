@@ -6,9 +6,9 @@ from typing import Any, Dict, Optional, TextIO
 import yaml
 from dotenv import dotenv_values
 
-from psenv.config import PSENV_PRIVATE_MARKER
+from psenv.core.config import PSENV_PRIVATE_MARKER
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
-from psenv.paths import PSENV_TEMPLATE_FILE_PATH
+from psenv.core.paths import PSENV_TEMPLATE_FILE_PATH
 
 
 def read_config(path: Path) -> Dict[str, Any]:
