@@ -1,4 +1,4 @@
-import logging
+import structlog
 from psenv.core.diff import ParameterDiff
 from psenv.core.context import Context
 from psenv.error_handling.exceptions import PsenvCLIError
@@ -9,9 +9,9 @@ class Synchronizer:
         self.param_diff = param_diff
         self.mode = mode
         self.dry_run = dry_run
-        self.logger = logging.getLogger("psenv.synchronizer")
+        self.logger = structlog.getLogger("psenv.synchronizer")
 
-    def sync(self):
+    def sync(self): # Debugging breakpoint
         if self.dry_run:
             self.execute_dry_run()
             return
@@ -32,15 +32,15 @@ class Synchronizer:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
 
     def _log_dry_run_to_add(self) -> None:
-        for key in self.param_diff.to_add:
+        for key in self.param_diff.to_add.keys():
             self.logger.info("[DRY RUN] Would add parameters: %s", key)
 
     def _log_dry_run_to_update(self) -> None:
-        for key in self.param_diff.to_update:
+        for key in self.param_diff.to_update.keys():
             self.logger.info("[DRY RUN] Would update parameters: %s", key)
 
     def _log_dry_run_to_remove(self) -> None:
-        for key in self.param_diff.to_remove:
+        for key in self.param_diff.to_remove.keys():
             self.logger.info("[DRY RUN] Would remove parameters: %s", key)
 
     @staticmethod

@@ -38,6 +38,12 @@ def configure_parser(subparser: Any) -> None:
         help="Add new, update existing, and remove parameters not in the local environment file."
     )
 
+    put_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be done, but do not make any changes."
+    )
+
 
 def put_parameters(cliargs: Namespace) -> None:
     logger.info("Putting parameters into the parameter store for environment:", config=cliargs.config)

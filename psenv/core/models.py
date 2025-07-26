@@ -80,4 +80,4 @@ def load_config(path: Optional[Path] = None) -> PsenvConfig:
     try:
         return PsenvConfig.model_validate(config)
     except (ValidationError, AssertionError, PsenvConfigError) as e:
-        raise PsenvConfigError("Error loading config") from e
+        raise PsenvConfigError(f"Error loading config {e}")
