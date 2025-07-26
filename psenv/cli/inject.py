@@ -25,11 +25,17 @@ def configure_parser(subparser: Any) -> None:
 
 
 def inject_parameters(cliargs: Namespace) -> None:
-    logger.info("Putting parameters into the parameter store for environment:", config=cliargs.config)
+    logger.info("Injecting parameters into env file:", config=cliargs.config)
 
     config = load_config(cliargs.config)
-    env_file = EnvFile(Path(config.envfile))
 
+    if cliargs.env:
+        config_env = config.get_config_environment(cliargs.env)
+        env_file = EnvFile(Path(config_env.environment.envfile))
+    else:
+        env_file = EnvFile(Path(config.envfile))
+
+    env_file.load()
     env_vars = get_environment_variables(cliargs.prefix)
     env_file.update_params(env_vars, section="private")
     env_file.write_params()
