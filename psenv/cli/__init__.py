@@ -4,7 +4,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import List
 
-from psenv.paths import PSENV_CONFIG_FILE_PATH
+from psenv.core.paths import PSENV_CONFIG_FILE_PATH
 
 from . import config, exec, get, inject, put
 
