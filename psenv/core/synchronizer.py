@@ -44,6 +44,10 @@ class Synchronizer:
             self.logger.info("[DRY RUN] Would remove parameters: %s", key)
 
     @staticmethod
+    def get_mode_from_cliargs(cliargs) -> str:
+        return Synchronizer.get_mode_from_flags(cliargs.add, cliargs.update, cliargs.sync)
+
+    @staticmethod
     def get_mode_from_flags(add: bool, update: bool, sync: bool) -> str:
         flags = [add, update, sync]
         if sum(flags) != 1:
