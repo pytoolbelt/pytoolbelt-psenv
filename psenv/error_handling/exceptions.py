@@ -16,3 +16,6 @@ class PsenvInternalError(Exception):
 
 class PsenvInvalidAccountError(Exception):
     pass
+
+class PsenvCLIError(Exception):
+    pass

@@ -18,18 +18,24 @@ def configure_parser(subparser: Any) -> None:
 
     put_parser.add_argument("-e", "--env", type=str, required=True, help="The environment to put parameters for.")
 
-    put_parser.add_argument(
-        "-m",
-        "--mode",
-        type=str,
-        required=False,
-        default="add",
-        choices=["add", "update", "sync"],
-        help="The mode of operation: 'add' to add new parameters, 'update' to add new and update existing parameters. 'sync' to add new, update existing, and remove parameters that are not in the local environment file.",
+    group = put_parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
+        "-a",
+        "--add",
+        action="store_true",
+        help="Add new parameters only."
     )
-
-    put_parser.add_argument(
-        "-o", "--overwrite", action="store_true", help="Simply overwrite existing parameters in the parameter store if they exist."
+    group.add_argument(
+        "-u",
+        "--update",
+        action="store_true",
+        help="Add new and update existing parameters."
+    )
+    group.add_argument(
+        "-s",
+        "--sync",
+        action="store_true",
+        help="Add new, update existing, and remove parameters not in the local environment file."
     )
 
 
@@ -44,5 +50,12 @@ def put_parameters(cliargs: Namespace) -> None:
     # generate a parameter diff to use for the put operation
     param_diff = diff.diff_parameters(ctx.env_file.local_params, remote_params)
 
-    synchronizer = Synchronizer(dry_run=getattr(cliargs, 'dry_run', False))
-    synchronizer.sync(ctx, param_diff, mode=cliargs.mode, overwrite=cliargs.overwrite)
+    # get the synchronizer
+    synchronizer = Synchronizer(
+        ctx=ctx,
+        param_diff=param_diff,
+        mode=Synchronizer.get_mode_from_flags(cliargs.add, cliargs.update, cliargs.sync),
+        dry_run=cliargs.dry_run
+    )
+    # execute the synchronization
+    synchronizer.sync()
