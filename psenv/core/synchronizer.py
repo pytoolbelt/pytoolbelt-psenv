@@ -12,9 +12,13 @@ class Synchronizer:
         self.logger = structlog.getLogger("psenv.synchronizer")
 
     def sync(self):
+        if self._is_nothing_to_do():
+            return
+
         if self.dry_run:
             self.execute_dry_run()
             return
+
         self.execute()
 
     def execute_dry_run(self) -> None:
@@ -33,6 +37,8 @@ class Synchronizer:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
 
     def execute(self) -> None:
+        nothing_to_do = True
+
         if self.mode == "add":
             self._add_parameters()
 
@@ -46,6 +52,12 @@ class Synchronizer:
             self._delete_parameters()
         else:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
+
+    def _is_nothing_to_do(self) -> bool:
+        if not self.param_diff.to_add and not self.param_diff.to_update and not self.param_diff.to_remove:
+            self.logger.info("No parameters to add, update, or remove. Everything is up to date.")
+            return True
+        return False
 
     def _add_parameters(self) -> None:
         self.ctx.ps_client.put_parameters(self.param_diff.to_add)
