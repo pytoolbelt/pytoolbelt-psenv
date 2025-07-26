@@ -68,7 +68,6 @@ class ParameterStoreClient:
     def delete_parameters(self, parameters: Dict[str, str]) -> None:
         for name in parameters:
             try:
-                print(f"deleting:::::{self.parameter_path}/{name}")
                 self.ssm.delete_parameter(Name=f"{self.parameter_path}/{name}")
             except Exception as e:
                 raise PsenvParameterStoreError(f"Error deleting parameter {name}: {e}") from e

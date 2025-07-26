@@ -4,17 +4,18 @@ from psenv.core.context import Context
 from psenv.error_handling.exceptions import PsenvCLIError
 
 class Synchronizer:
-    def __init__(self, ctx: Context, param_diff:ParameterDiff, mode: str, dry_run: bool) -> None:
+    def __init__(self, ctx: Context, param_diff: ParameterDiff, mode: str, dry_run: bool) -> None:
         self.ctx = ctx
         self.param_diff = param_diff
         self.mode = mode
         self.dry_run = dry_run
         self.logger = structlog.getLogger("psenv.synchronizer")
 
-    def sync(self): # Debugging breakpoint
+    def sync(self):
         if self.dry_run:
             self.execute_dry_run()
             return
+        self.execute()
 
     def execute_dry_run(self) -> None:
         if self.mode == "add":
@@ -30,6 +31,30 @@ class Synchronizer:
             self._log_dry_run_to_remove()
         else:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
+
+    def execute(self) -> None:
+        if self.mode == "add":
+            self._add_parameters()
+
+        elif self.mode == "update":
+            self._add_parameters()
+            self._update_parameters()
+
+        elif self.mode == "sync":
+            self._add_parameters()
+            self._update_parameters()
+            self._delete_parameters()
+        else:
+            raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
+
+    def _add_parameters(self) -> None:
+        self.ctx.ps_client.put_parameters(self.param_diff.to_add)
+
+    def _update_parameters(self) -> None:
+        self.ctx.ps_client.put_parameters(self.param_diff.to_update, overwrite=True)
+
+    def _delete_parameters(self) -> None:
+        self.ctx.ps_client.delete_parameters(self.param_diff.to_remove)
 
     def _log_dry_run_to_add(self) -> None:
         for key in self.param_diff.to_add.keys():
