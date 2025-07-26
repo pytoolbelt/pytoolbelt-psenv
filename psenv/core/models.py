@@ -2,9 +2,10 @@ from pathlib import Path
 from typing import List, Optional
 
 from pydantic import BaseModel, ValidationError, field_validator
-from psenv.error_handling.exceptions import PsenvConfigError
+
 from psenv.core.fileio import read_config
 from psenv.core.paths import PSENV_CONFIG_FILE_PATH
+from psenv.error_handling.exceptions import PsenvConfigError
 
 
 class Environment(BaseModel):
@@ -31,6 +32,7 @@ class Environment(BaseModel):
         if value and not value.startswith("alias/"):
             raise PsenvConfigError("KMS key must start with 'alias/'.")
         return value
+
 
 class PsenvConfig(BaseModel):
     envfile: str

@@ -1,6 +1,9 @@
 import os
+
 import pytest
+
 from psenv.core import config
+
 
 @pytest.fixture
 def reset_env_var():

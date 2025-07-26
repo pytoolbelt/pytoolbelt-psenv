@@ -5,8 +5,8 @@ from typing import Any
 import structlog
 
 from psenv.core import fileio
-from psenv.error_handling.exceptions import PsenvConfigError
 from psenv.core.paths import PSENV_CONFIG_FILE_PATH
+from psenv.error_handling.exceptions import PsenvConfigError
 
 logger = structlog.get_logger(__name__)
 

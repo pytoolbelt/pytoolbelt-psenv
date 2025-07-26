@@ -1,6 +1,8 @@
 import os
+
 import pytest
-from psenv.core.fileio import read_config, read_config_template, get_environment_variables
+
+from psenv.core.fileio import get_environment_variables, read_config, read_config_template
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
 
 
@@ -92,13 +94,7 @@ def test_read_config_template_default_path():
 def mock_env_vars():
     # Setup test environment variables
     original_env = os.environ.copy()
-    os.environ.update({
-        "APP_NAME": "myapp",
-        "APP_VERSION": "1.0.0",
-        "APP_PORT": "8080",
-        "OTHER_VAR": "test",
-        "SYSTEM_PATH": "/usr/local"
-    })
+    os.environ.update({"APP_NAME": "myapp", "APP_VERSION": "1.0.0", "APP_PORT": "8080", "OTHER_VAR": "test", "SYSTEM_PATH": "/usr/local"})
     yield
     # Restore original environment
     os.environ.clear()

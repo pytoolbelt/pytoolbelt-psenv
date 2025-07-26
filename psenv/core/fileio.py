@@ -7,8 +7,8 @@ import yaml
 from dotenv import dotenv_values
 
 from psenv.core.config import PSENV_PRIVATE_MARKER
-from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
 from psenv.core.paths import PSENV_TEMPLATE_FILE_PATH
+from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
 
 
 def read_config(path: Path) -> Dict[str, Any]:

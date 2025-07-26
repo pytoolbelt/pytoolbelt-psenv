@@ -1,7 +1,9 @@
-import pytest
 from pathlib import Path
-from psenv.core.fileio import EnvFile
+
+import pytest
+
 from psenv.core.config import PSENV_PRIVATE_MARKER
+from psenv.core.fileio import EnvFile
 
 
 @pytest.fixture

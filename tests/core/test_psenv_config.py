@@ -1,5 +1,6 @@
 import pytest
-from psenv.core.models import PsenvConfig, Environment, PsenvConfigError
+
+from psenv.core.models import Environment, PsenvConfig, PsenvConfigError
 
 
 def test_valid_psenv_config():
@@ -9,8 +10,8 @@ def test_valid_psenv_config():
         root_kms_key="alias/root",
         environments=[
             Environment(name="dev", account="123456789012", envfile=".env.dev"),
-            Environment(name="prod", account="987654321098", envfile=".env.prod")
-        ]
+            Environment(name="prod", account="987654321098", envfile=".env.prod"),
+        ],
     )
     assert config.envfile == ".env"
     assert config.root_path == "/params"
@@ -20,11 +21,7 @@ def test_valid_psenv_config():
 
 def test_minimal_psenv_config():
     config = PsenvConfig(
-        envfile=".env",
-        root_path="/params",
-        environments=[
-            Environment(name="dev", account="123456789012", envfile=".env")
-        ]
+        envfile=".env", root_path="/params", environments=[Environment(name="dev", account="123456789012", envfile=".env")]
     )
     assert config.envfile == ".env"
     assert config.root_path == "/params"
@@ -35,11 +32,7 @@ def test_minimal_psenv_config():
 def test_invalid_root_path():
     with pytest.raises(PsenvConfigError, match="Path must start with '/'"):
         PsenvConfig(
-            envfile=".env",
-            root_path="invalid/path",
-            environments=[
-                Environment(name="dev", account="123456789012", envfile=".env")
-            ]
+            envfile=".env", root_path="invalid/path", environments=[Environment(name="dev", account="123456789012", envfile=".env")]
         )
 
 
@@ -49,19 +42,13 @@ def test_invalid_root_kms_key():
             envfile=".env",
             root_path="/params",
             root_kms_key="invalid-key",
-            environments=[
-                Environment(name="dev", account="123456789012", envfile=".env")
-            ]
+            environments=[Environment(name="dev", account="123456789012", envfile=".env")],
         )
 
 
 def test_get_config_environment_success():
     config = PsenvConfig(
-        envfile=".env",
-        root_path="/params",
-        environments=[
-            Environment(name="dev", account="123456789012", envfile=".env")
-        ]
+        envfile=".env", root_path="/params", environments=[Environment(name="dev", account="123456789012", envfile=".env")]
     )
     env = config.get_config_environment("dev")
     assert env.environment.name == "dev"
@@ -70,11 +57,7 @@ def test_get_config_environment_success():
 
 def test_get_config_environment_not_found():
     config = PsenvConfig(
-        envfile=".env",
-        root_path="/params",
-        environments=[
-            Environment(name="dev", account="123456789012", envfile=".env")
-        ]
+        envfile=".env", root_path="/params", environments=[Environment(name="dev", account="123456789012", envfile=".env")]
     )
     with pytest.raises(PsenvConfigError, match="Environment 'prod' not found in configuration"):
         config.get_config_environment("prod")
