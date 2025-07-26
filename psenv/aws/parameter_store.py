@@ -1,5 +1,5 @@
 from typing import Any, Dict, Iterable, Optional, Tuple
-
+import structlog
 import boto3
 from mypy_boto3_ssm import SSMClient
 
@@ -11,6 +11,7 @@ class ParameterStoreClient:
         self._parameter_path = parameter_path
         self._ssm = ssm_client or boto3.client("ssm")
         self._kms_key = kms_key
+        self.logger = structlog.getLogger("psenv.parameter_store")
 
     @property
     def ssm(self) -> SSMClient:
@@ -61,6 +62,7 @@ class ParameterStoreClient:
     def put_parameters(self, parameters: Dict[str, str], overwrite: bool = False) -> None:
         for name, value in parameters.items():
             try:
+                self.logger.info("Putting parameter", name=f"{self.parameter_path}/{name}", overwrite=overwrite)
                 self.ssm.put_parameter(**self.put_params_kwargs(name, value, overwrite))
             except Exception as e:
                 raise PsenvParameterStoreError(f"Error putting Parameters: {e}") from e
@@ -68,6 +70,7 @@ class ParameterStoreClient:
     def delete_parameters(self, parameters: Dict[str, str]) -> None:
         for name in parameters:
             try:
+                self.logger.info("Deleting parameter", name=f"{self.parameter_path}/{name}")
                 self.ssm.delete_parameter(Name=f"{self.parameter_path}/{name}")
             except Exception as e:
                 raise PsenvParameterStoreError(f"Error deleting parameter {name}: {e}") from e
