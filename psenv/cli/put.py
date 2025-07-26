@@ -5,6 +5,7 @@ import structlog
 
 from psenv.core import diff
 from psenv.core.context import Context
+from psenv.core.synchronizer import Synchronizer
 
 logger = structlog.get_logger(__name__)
 
@@ -23,8 +24,8 @@ def configure_parser(subparser: Any) -> None:
         type=str,
         required=False,
         default="add",
-        choices=["add", "sync"],
-        help="The mode of operation: 'add' to add new parameters, 'sync' to synchronize existing ones.",
+        choices=["add", "update", "sync"],
+        help="The mode of operation: 'add' to add new parameters, 'update' to add new and update existing parameters. 'sync' to add new, update existing, and remove parameters that are not in the local environment file.",
     )
 
     put_parser.add_argument(
@@ -43,20 +44,5 @@ def put_parameters(cliargs: Namespace) -> None:
     # generate a parameter diff to use for the put operation
     param_diff = diff.diff_parameters(ctx.env_file.local_params, remote_params)
 
-    if cliargs.mode == "sync":
-        logger.info("Syncing parameters with the parameter store.")
-        ctx.ps_client.put_parameters(param_diff.to_add)
-
-        ctx.ps_client.put_parameters(param_diff.to_update, overwrite=True)
-
-        logger.info("Removing parameters that are not in the local environment file.")
-        deleted = ctx.ps_client.delete_parameters(param_diff.to_remove)
-
-    elif cliargs.mode == "add" and not cliargs.overwrite:
-        logger.info("Adding new parameters to the parameter store.")
-        ctx.ps_client.put_parameters(param_diff.to_add)
-
-    elif cliargs.mode == "add" and cliargs.overwrite:
-        logger.info("Overwriting existing parameters in the parameter store.")
-        ctx.ps_client.put_parameters(param_diff.to_add)
-        ctx.ps_client.put_parameters(param_diff.to_update, overwrite=True)
+    synchronizer = Synchronizer(dry_run=getattr(cliargs, 'dry_run', False))
+    synchronizer.sync(ctx, param_diff, mode=cliargs.mode, overwrite=cliargs.overwrite)
