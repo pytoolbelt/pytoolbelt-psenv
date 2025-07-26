@@ -1,4 +1,3 @@
-import pytest
 from argparse import Namespace
 from unittest.mock import patch, MagicMock
 from psenv.cli import get
