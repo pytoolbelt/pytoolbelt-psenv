@@ -89,7 +89,6 @@ def test_env_file_empty_content(env_file):
 
 
 def test_env_file_with_expanduser(tmp_path):
-    home_path = tmp_path / "home" / "user" / ".env"
     env_file = EnvFile(Path("~/test/.env"))
 
     assert "~" not in str(env_file.path)
