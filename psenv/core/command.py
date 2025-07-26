@@ -29,6 +29,7 @@ class Command(Popen):
         return_code = self.wait()
 
         if return_code != 0:
+            self.stderr.close()
             raise RuntimeError(f"Command failed with code {return_code}. Error: {stderr}")
 
         self.stderr.close()
