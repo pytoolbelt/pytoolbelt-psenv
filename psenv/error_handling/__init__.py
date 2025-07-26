@@ -3,7 +3,7 @@ from typing import Callable, Optional
 
 import structlog
 
-from psenv import config
+from psenv.core import config
 
 from . import exceptions
 

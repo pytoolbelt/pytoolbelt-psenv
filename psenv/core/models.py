@@ -2,19 +2,17 @@ from pathlib import Path
 from typing import List, Optional
 
 from pydantic import BaseModel, ValidationError, field_validator
-
 from psenv.error_handling.exceptions import PsenvConfigError
 from psenv.core.fileio import read_config
 from psenv.core.paths import PSENV_CONFIG_FILE_PATH
 
 
-# TODO: kms key should be a regex pattern
 class Environment(BaseModel):
     name: str
-    account: str  # TODO: regex this for aws account id
+    account: str
     envfile: str
     kms_key: Optional[str] = None
-    path: Optional[str]
+    path: Optional[str] = None
 
     @field_validator("account")
     def validate_account(cls, value: str) -> str:
@@ -32,7 +30,7 @@ class Environment(BaseModel):
     def validate_kms_key(cls, value: Optional[str]) -> Optional[str]:
         if value and not value.startswith("alias/"):
             raise PsenvConfigError("KMS key must start with 'alias/'.")
-
+        return value
 
 class PsenvConfig(BaseModel):
     envfile: str
@@ -79,5 +77,5 @@ def load_config(path: Optional[Path] = None) -> PsenvConfig:
     config = read_config(path)
     try:
         return PsenvConfig.model_validate(config)
-    except ValidationError as e:
+    except (ValidationError, AssertionError, PsenvConfigError) as e:
         raise PsenvConfigError("Error loading config") from e
