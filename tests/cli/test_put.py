@@ -1,8 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
 from argparse import Namespace
+from unittest.mock import MagicMock, patch
+
 from psenv.cli import put
 from psenv.core.diff import ParameterDiff
+
 
 def test_configure_parser_adds_put():
     subparser = MagicMock()
@@ -12,47 +13,31 @@ def test_configure_parser_adds_put():
 
     # Verify parser setup
     subparser.add_parser.assert_called_once_with(
-        name="put",
-        description="Manage psenv configurations.",
-        help="Put parameters into the parameter store."
+        name="put", description="Manage psenv configurations.", help="Put parameters into the parameter store."
     )
     parser.set_defaults.assert_called_once_with(func=put.put_parameters)
 
     # Verify arguments
-    parser.add_argument.assert_any_call(
-        "-e", "--env", type=str, required=True, help="The environment to put parameters for.", metavar=""
-    )
+    parser.add_argument.assert_any_call("-e", "--env", type=str, required=True, help="The environment to put parameters for.", metavar="")
 
     # Verify mutually exclusive group arguments
     group = parser.add_mutually_exclusive_group.return_value
-    group.add_argument.assert_any_call(
-        "-a", "--add", action="store_true", help="Add new parameters only."
-    )
-    group.add_argument.assert_any_call(
-        "-u", "--update", action="store_true", help="Add new and update existing parameters."
-    )
+    group.add_argument.assert_any_call("-a", "--add", action="store_true", help="Add new parameters only.")
+    group.add_argument.assert_any_call("-u", "--update", action="store_true", help="Add new and update existing parameters.")
     group.add_argument.assert_any_call(
         "-s", "--sync", action="store_true", help="Add new, update existing, and remove parameters not in the local environment file."
     )
 
     # Verify dry-run
-    parser.add_argument.assert_any_call(
-        "--dry-run", action="store_true", help="Show what would be done, but do not make any changes."
-    )
+    parser.add_argument.assert_any_call("--dry-run", action="store_true", help="Show what would be done, but do not make any changes.")
+
 
 @patch("psenv.cli.put.Synchronizer")
 @patch("psenv.cli.put.Context")
 @patch("psenv.cli.put.diff.diff_parameters")
 def test_put_parameters_calls_synchronizer(mock_diff, mock_context, mock_synchronizer):
     # Setup mocks
-    cliargs = Namespace(
-        config="config.yml",
-        env="dev",
-        add=True,
-        update=False,
-        sync=False,
-        dry_run=False
-    )
+    cliargs = Namespace(config="config.yml", env="dev", add=True, update=False, sync=False, dry_run=False)
 
     mock_ctx = MagicMock()
     mock_context.from_cliargs.return_value = mock_ctx
@@ -83,19 +68,13 @@ def test_put_parameters_calls_synchronizer(mock_diff, mock_context, mock_synchro
     # Verify sync was called
     mock_sync.sync.assert_called_once()
 
+
 @patch("psenv.cli.put.Synchronizer")
 @patch("psenv.cli.put.Context")
 @patch("psenv.cli.put.diff.diff_parameters")
 def test_put_parameters_dry_run(mock_diff, mock_context, mock_synchronizer):
     # Setup with dry_run=True
-    cliargs = Namespace(
-        config="config.yml",
-        env="dev",
-        add=False,
-        update=False,
-        sync=True,
-        dry_run=True
-    )
+    cliargs = Namespace(config="config.yml", env="dev", add=False, update=False, sync=True, dry_run=True)
 
     mock_ctx = MagicMock()
     mock_context.from_cliargs.return_value = mock_ctx

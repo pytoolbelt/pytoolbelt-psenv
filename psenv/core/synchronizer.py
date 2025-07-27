@@ -39,7 +39,6 @@ class Synchronizer:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
 
     def execute(self) -> None:
-
         if self.mode == "add":
             self._add_parameters()
 
