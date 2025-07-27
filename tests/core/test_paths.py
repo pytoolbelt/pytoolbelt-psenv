@@ -10,4 +10,6 @@ def test_psenv_config_file_path():
 
 
 def test_psenv_template_file_path():
-    assert paths.PSENV_TEMPLATE_FILE_PATH == paths.Path(__file__).parent.parent.parent / "src" / "psenv" / "templates" / "psenv.template.yml"
+    assert (
+        paths.PSENV_TEMPLATE_FILE_PATH == paths.Path(__file__).parent.parent.parent / "src" / "psenv" / "templates" / "psenv.template.yml"
+    )

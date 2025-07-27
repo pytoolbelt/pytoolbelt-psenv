@@ -2,6 +2,10 @@
 
 version: '3'
 
+vars:
+  SRC_DIR: src/psenv
+  TEST_DIR: tests
+
 tasks:
   default:
     desc: "List all tasks"
@@ -30,16 +34,26 @@ tasks:
   test:
     desc: "Run tests with pytest"
     cmds:
-      - uv run pytest --cov=psenv tests/
+      - uv run pytest --cov={{.SRC_DIR}} {{.TEST_DIR}}/
   format:
     desc: "Format code with ruff"
     cmds:
-      - uv run ruff format psenv/ tests/
+      - uv run ruff format {{.SRC_DIR}}/ {{.TEST_DIR}}/
   sort:
     desc: "Sort imports with ruff"
     cmds:
-      - uv run ruff check psenv/ tests/ --fix
+      - uv run ruff check {{.SRC_DIR}}/ {{.TEST_DIR}}/ --fix
   build:
     desc: "Build the package"
     cmds:
-      - uv build
+      - uv run python -m build
+
+  check-format:
+    desc: "Check code formatting with ruff without making changes"
+    cmds:
+      - uv run ruff format {{.SRC_DIR}}/ {{.TEST_DIR}}/ --check
+
+  check-sort:
+    desc: "Check import sorting with ruff without making changes"
+    cmds:
+      - uv run ruff check {{.SRC_DIR}}/ {{.TEST_DIR}}/ --select=I --no-fix
