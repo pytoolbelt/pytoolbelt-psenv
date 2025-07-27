@@ -84,10 +84,9 @@ def test_read_config_template_file_not_found(tmp_path):
 
 
 def test_read_config_template_default_path():
-    with pytest.raises(PsenvInternalError) as exc_info:
-        read_config_template()
-    assert "psenv template file not found at" in str(exc_info.value)
-    assert "Please file a bug report" in str(exc_info.value)
+    template_content = read_config_template()
+    assert template_content
+    assert "envfile:" in template_content
 
 
 @pytest.fixture
