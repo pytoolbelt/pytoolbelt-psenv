@@ -25,7 +25,7 @@ def test_configure_parser_adds_inject():
 @patch("psenv.cli.inject.load_config")
 @patch("psenv.cli.inject.logger")
 def test_inject_parameters_calls_dependencies(mock_logger, mock_load_config, mock_envfile, mock_get_env_vars):
-    cliargs = Namespace(config="foo.yml", prefix="FOO")
+    cliargs = Namespace(config="foo.yml", prefix="FOO", env="bar")
     mock_config = MagicMock()
     mock_config.envfile = "bar.env"
     mock_load_config.return_value = mock_config
@@ -36,7 +36,7 @@ def test_inject_parameters_calls_dependencies(mock_logger, mock_load_config, moc
     inject.inject_parameters(cliargs)
 
     mock_logger.info.assert_called_once_with(
-        "Putting parameters into the parameter store for environment:", config="foo.yml"
+        "Injecting parameters into env file:", config="foo.yml"
     )
     mock_load_config.assert_called_once_with("foo.yml")
     mock_envfile.assert_called_once()
