@@ -1,7 +1,9 @@
 import structlog
-from psenv.core.diff import ParameterDiff
+
 from psenv.core.context import Context
+from psenv.core.diff import ParameterDiff
 from psenv.error_handling.exceptions import PsenvCLIError
+
 
 class Synchronizer:
     def __init__(self, ctx: Context, param_diff: ParameterDiff, mode: str, dry_run: bool) -> None:
@@ -37,7 +39,6 @@ class Synchronizer:
             raise PsenvCLIError(f"Invalid mode: {self.mode}. Must be one of 'add', 'update', or 'sync'.")
 
     def execute(self) -> None:
-        nothing_to_do = True
 
         if self.mode == "add":
             self._add_parameters()

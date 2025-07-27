@@ -1,6 +1,7 @@
 from typing import Any, Dict, Iterable, Optional, Tuple
-import structlog
+
 import boto3
+import structlog
 from mypy_boto3_ssm import SSMClient
 
 from psenv.error_handling.exceptions import PsenvParameterStoreError

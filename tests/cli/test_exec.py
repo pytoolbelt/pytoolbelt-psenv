@@ -1,6 +1,8 @@
 from argparse import Namespace
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from psenv.cli import exec as exec_mod
+
 
 def test_configure_parser_adds_exec():
     subparser = MagicMock()
@@ -8,17 +10,12 @@ def test_configure_parser_adds_exec():
     subparser.add_parser.return_value = parser
     exec_mod.configure_parser(subparser)
     subparser.add_parser.assert_called_once_with(
-        name="exec",
-        description="Run a parameterized command",
-        help="Execute a command with parameters from the parameter store."
+        name="exec", description="Run a parameterized command", help="Execute a command with parameters from the parameter store."
     )
     parser.set_defaults.assert_called_once_with(func=exec_mod.exec_command)
-    parser.add_argument.assert_any_call(
-        "-e", "--env", type=str, required=True, help="The environment to run the command for."
-    )
-    parser.add_argument.assert_any_call(
-        "command", nargs=exec_mod.REMAINDER, help="Command to execute with its arguments"
-    )
+    parser.add_argument.assert_any_call("-e", "--env", type=str, required=True, help="The environment to run the command for.")
+    parser.add_argument.assert_any_call("command", nargs=exec_mod.REMAINDER, help="Command to execute with its arguments")
+
 
 @patch("psenv.cli.exec.Command")
 @patch("psenv.cli.exec.Context")

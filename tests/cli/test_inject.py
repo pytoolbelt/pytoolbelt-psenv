@@ -1,6 +1,8 @@
 from argparse import Namespace
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from psenv.cli import inject
+
 
 def test_configure_parser_adds_inject():
     subparser = MagicMock()
@@ -13,12 +15,11 @@ def test_configure_parser_adds_inject():
         help="Inject environment variables to an .env file",
     )
     parser.set_defaults.assert_called_once_with(func=inject.inject_parameters)
-    parser.add_argument.assert_any_call(
-        "-e", "--env", type=str, required=False, help="The environment to inject parameters to."
-    )
+    parser.add_argument.assert_any_call("-e", "--env", type=str, required=False, help="The environment to inject parameters to.")
     parser.add_argument.assert_any_call(
         "-p", "--prefix", type=str, required=False, default="", help="The prefix to filter environment variables by."
     )
+
 
 @patch("psenv.cli.inject.get_environment_variables")
 @patch("psenv.cli.inject.EnvFile")
@@ -35,12 +36,9 @@ def test_inject_parameters_calls_dependencies(mock_logger, mock_load_config, moc
 
     inject.inject_parameters(cliargs)
 
-    mock_logger.info.assert_called_once_with(
-        "Injecting parameters into env file:", config="foo.yml"
-    )
+    mock_logger.info.assert_called_once_with("Injecting parameters into env file:", config="foo.yml")
     mock_load_config.assert_called_once_with("foo.yml")
     mock_envfile.assert_called_once()
     mock_get_env_vars.assert_called_once_with("FOO")
     mock_env_file_instance.update_params.assert_called_once_with({"FOO_BAR": "baz"}, section="private")
     mock_env_file_instance.write_params.assert_called_once_with()
-
