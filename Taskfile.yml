@@ -39,3 +39,7 @@ tasks:
     desc: "Sort imports with ruff"
     cmds:
       - uv run ruff check psenv/ tests/ --fix
+  build:
+    desc: "Build the package"
+    cmds:
+      - uv build
