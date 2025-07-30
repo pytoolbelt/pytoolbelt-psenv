@@ -46,7 +46,7 @@ tasks:
   build:
     desc: "Build the package"
     cmds:
-      - uv run python -m build
+      - uv build
 
   check-format:
     desc: "Check code formatting with ruff without making changes"
