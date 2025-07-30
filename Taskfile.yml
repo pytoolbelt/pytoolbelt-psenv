@@ -57,3 +57,13 @@ tasks:
     desc: "Check import sorting with ruff without making changes"
     cmds:
       - uv run ruff check {{.SRC_DIR}}/ {{.TEST_DIR}}/ --select=I --no-fix
+
+  docs:
+    desc: "Serve documentation locally with MkDocs"
+    cmds:
+      - uv run mkdocs serve
+
+  build-docs:
+    desc: "Build documentation site"
+    cmds:
+      - uv run mkdocs build
