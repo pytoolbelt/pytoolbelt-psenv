@@ -520,46 +520,6 @@ wheels = [
 ]
 
 [[package]]
-name = "psenv"
-version = "0.18.1"
-source = { editable = "." }
-dependencies = [
-    { name = "boto3" },
-    { name = "boto3-stubs", extra = ["ssm", "sts"] },
-    { name = "pydantic" },
-    { name = "python-dotenv" },
-    { name = "pyyaml" },
-    { name = "structlog" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "boto3-stubs", extra = ["ssm", "sts"] },
-    { name = "mkdocs" },
-    { name = "mkdocs-material" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "boto3", specifier = "==1.38.32" },
-    { name = "boto3-stubs", extras = ["ssm", "sts"], specifier = "==1.38.32" },
-    { name = "boto3-stubs", extras = ["ssm", "sts"], marker = "extra == 'dev'", specifier = "==1.38.32" },
-    { name = "mkdocs", marker = "extra == 'dev'", specifier = "==1.6.0" },
-    { name = "mkdocs-material", marker = "extra == 'dev'", specifier = "==9.5.26" },
-    { name = "pydantic", specifier = "==2.11.5" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = "==8.4.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==6.1.1" },
-    { name = "python-dotenv", specifier = "==1.1.0" },
-    { name = "pyyaml", specifier = "==6.0.2" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = "==0.11.13" },
-    { name = "structlog", specifier = "==25.4.0" },
-]
-provides-extras = ["dev"]
-
-[[package]]
 name = "pydantic"
 version = "2.11.5"
 source = { registry = "https://pypi.org/simple" }
@@ -734,6 +694,46 @@ sdist = { url = "https://files.pythonhosted.org/packages/88/2c/7bb1416c5620485aa
 wheels = [
     { url = "https://files.pythonhosted.org/packages/1e/18/98a99ad95133c6a6e2005fe89faedf294a748bd5dc803008059409ac9b1e/python_dotenv-1.1.0-py3-none-any.whl", hash = "sha256:d7c01d9e2293916c18baf562d95698754b0dbbb5e74d457c45d4f6561fb9d55d", size = 20256, upload-time = "2025-03-25T10:14:55.034Z" },
 ]
+
+[[package]]
+name = "pytoolbelt-psenv"
+version = "0.18.0"
+source = { editable = "." }
+dependencies = [
+    { name = "boto3" },
+    { name = "boto3-stubs", extra = ["ssm", "sts"] },
+    { name = "pydantic" },
+    { name = "python-dotenv" },
+    { name = "pyyaml" },
+    { name = "structlog" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "boto3-stubs", extra = ["ssm", "sts"] },
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "boto3", specifier = "==1.38.32" },
+    { name = "boto3-stubs", extras = ["ssm", "sts"], specifier = "==1.38.32" },
+    { name = "boto3-stubs", extras = ["ssm", "sts"], marker = "extra == 'dev'", specifier = "==1.38.32" },
+    { name = "mkdocs", marker = "extra == 'dev'", specifier = "==1.6.0" },
+    { name = "mkdocs-material", marker = "extra == 'dev'", specifier = "==9.5.26" },
+    { name = "pydantic", specifier = "==2.11.5" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = "==8.4.0" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==6.1.1" },
+    { name = "python-dotenv", specifier = "==1.1.0" },
+    { name = "pyyaml", specifier = "==6.0.2" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = "==0.11.13" },
+    { name = "structlog", specifier = "==25.4.0" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "pyyaml"

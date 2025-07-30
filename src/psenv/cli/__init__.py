@@ -21,7 +21,7 @@ def parse_args() -> Namespace:
         "-v",
         "--version",
         action="version",
-        version=f"psenv :: {metadata.version('psenv')} :: AWS Parameter Store Environment Manager",
+        version=f"psenv :: {metadata.version('pytoolbelt-psenv')} :: AWS Parameter Store Environment Manager",
     )
 
     parser.add_argument(
