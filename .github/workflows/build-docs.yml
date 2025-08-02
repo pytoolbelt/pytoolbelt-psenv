@@ -1,0 +1,31 @@
+name: build-docs.yml
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  build_docs:
+    name: Build and Publish Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          python-version: "3.10.5"
+
+      - name: Install Taskfile
+        run: python -m pip install go-task-bin
+
+      - name: Install MkDocs
+        run: task setup
+
+      - name: Build and Publish Docs
+        run: task publish-docs
+
+      - name: Build Docs and Publish
+        run: . docvenv/bin/activate && mkdocs gh-deploy --force

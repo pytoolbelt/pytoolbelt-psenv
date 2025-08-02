@@ -67,3 +67,8 @@ tasks:
     desc: "Build documentation site"
     cmds:
       - uv run mkdocs build
+
+  publish-docs:
+    desc: "Publish documentation to GitHub Pages"
+    cmds:
+      - uv run mkdocs gh-deploy --force
