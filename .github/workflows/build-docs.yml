@@ -41,6 +41,3 @@ jobs:
 
       - name: Build and Publish Docs
         run: task publish-docs
-
-      - name: Build Docs and Publish
-        run: . docvenv/bin/activate && mkdocs gh-deploy --force
