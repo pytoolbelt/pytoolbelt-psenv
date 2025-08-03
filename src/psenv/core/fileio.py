@@ -108,3 +108,37 @@ class EnvFile:
             self._write_section_params(self._main_params, env)
             env.write(f"\n\n{PSENV_PRIVATE_MARKER}\n\n")
             self._write_section_params(self._private_params, env)
+
+
+class DefaultEnvPaths:
+
+    def __init__(self, path: Path) -> None:
+        self.path = path
+
+    @property
+    def environment_directory(self) -> Path:
+        return self.path / "environments"
+
+    @property
+    def production_env_file(self) -> Path:
+        return self.environment_directory / "prd.env"
+
+    @property
+    def development_env_file(self) -> Path:
+        return self.environment_directory / "dev.env"
+
+    @property
+    def testing_env_file(self) -> Path:
+        return self.environment_directory / "test.env"
+
+    def create(self) -> None:
+        self.environment_directory.mkdir(parents=True, exist_ok=True)
+
+        if not self.production_env_file.exists():
+            self.production_env_file.touch()
+
+        if not self.development_env_file.exists():
+            self.development_env_file.touch()
+
+        if not self.testing_env_file.exists():
+            self.testing_env_file.touch()

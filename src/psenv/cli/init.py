@@ -1,7 +1,6 @@
-from argparse import Action, Namespace
+from argparse import Namespace, Action
 from pathlib import Path
 from typing import Any
-
 import structlog
 
 from psenv.core import fileio
@@ -23,12 +22,10 @@ class ValidatePathAction(Action):
 
 
 def configure_parser(subparser: Any) -> None:
-    config_parser = subparser.add_parser(name="config", description="Manage psenv configurations.")
+    init_parser = subparser.add_parser(name="init", description="Manage psenv configurations.")
+    init_parser.set_defaults(func=init_entrypoint)
 
-    subparser = config_parser.add_subparsers(dest="new_config")
-    new_parser = subparser.add_parser(name="new", description="Create a new psenv configuration file.")
-    new_parser.set_defaults(func=new_config)
-    new_parser.add_argument(
+    init_parser.add_argument(
         "-p",
         "--path",
         help="Path to the new configuration file.",
@@ -39,8 +36,11 @@ def configure_parser(subparser: Any) -> None:
     )
 
 
-def new_config(cliargs: Namespace) -> int:
-    logger.info("Creating new psenv configuration file", path=cliargs.path)
+def init_entrypoint(cliargs: Namespace) -> None:
+    logger.info("Creating new psenv configuration file")
     template = fileio.read_config_template()
     fileio.write_config(cliargs.path, template)
-    return 0
+
+    logger.info("Creating new psenv environment directory")
+    default_env = fileio.DefaultEnvPaths(cliargs.path)
+    default_env.create()

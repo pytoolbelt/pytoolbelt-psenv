@@ -6,9 +6,10 @@ repo_name: psenv
 
 theme:
   name: material
+  logo: assets/logo-noBgColor.png
   palette:
-    primary: indigo
-    accent: indigo
+    primary: 07689f
+    accent: ff7e67
   features:
     - navigation.instant
     - navigation.tracking
@@ -16,17 +17,6 @@ theme:
     - navigation.expand
     - search.highlight
     - content.code.copy
-
-markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.superfences
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - admonition
-  - pymdownx.details
-  - tables
-  - footnotes
 
 nav:
   - Home: index.md
