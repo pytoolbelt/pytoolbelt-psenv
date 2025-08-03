@@ -7,7 +7,7 @@ import yaml
 from dotenv import dotenv_values
 
 from psenv.core.config import PSENV_PRIVATE_MARKER
-from psenv.core.paths import PSENV_TEMPLATE_FILE_PATH
+from psenv.core.paths import PSENV_TEMPLATE_FILE_PATH, PSENV_CONFIG_FILE_PATH
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
 
 
@@ -113,6 +113,8 @@ class EnvFile:
 class DefaultEnvPaths:
 
     def __init__(self, path: Path) -> None:
+        if path == PSENV_CONFIG_FILE_PATH:
+            path = path.parent
         self.path = path
 
     @property

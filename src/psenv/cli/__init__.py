@@ -27,7 +27,7 @@ def parse_args() -> Namespace:
     parser.add_argument(
         "-c",
         "--config",
-        help="Path to the psenv configuration file.",
+        help="Path to the psenv configuration file or where to initialize a new one",
         type=Path,
         required=False,
         default=PSENV_CONFIG_FILE_PATH,
