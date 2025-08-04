@@ -4,6 +4,8 @@ import pytest
 
 from psenv.core.fileio import get_environment_variables, read_config, read_config_template
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
+from psenv.core.fileio import DefaultEnvPaths, PSENV_CONFIG_FILE_PATH
+from pathlib import Path
 
 
 def test_read_config_success(tmp_path):
@@ -125,3 +127,32 @@ def test_get_environment_variables_empty_prefix(mock_env_vars):
     result = get_environment_variables("")
     assert isinstance(result, dict)
     assert len(result) == len(os.environ)
+
+
+def test_default_env_paths_init_with_regular_path():
+    test_path = Path("/test/path")
+    paths = DefaultEnvPaths(test_path)
+    assert paths.path == test_path
+
+
+def test_default_env_paths_init_with_config_file_path():
+    paths = DefaultEnvPaths(PSENV_CONFIG_FILE_PATH)
+    assert paths.path == PSENV_CONFIG_FILE_PATH.parent
+
+
+def test_environment_directory_property():
+    test_path = Path("/test/path")
+    paths = DefaultEnvPaths(test_path)
+    assert paths.environment_directory == test_path / "environments"
+
+
+def test_production_env_file_property():
+    test_path = Path("/test/path")
+    paths = DefaultEnvPaths(test_path)
+    assert paths.production_env_file == test_path / "environments" / "prd.env"
+
+
+def test_default_env_paths_with_tmp_path(tmp_path):
+    paths = DefaultEnvPaths(tmp_path)
+    assert paths.environment_directory == tmp_path / "environments"
+    assert paths.production_env_file == tmp_path / "environments" / "prd.env"
