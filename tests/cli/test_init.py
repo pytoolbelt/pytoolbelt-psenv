@@ -1,9 +1,6 @@
-import os
 import argparse
 from pathlib import Path
 from unittest import mock
-
-import pytest
 
 from psenv.cli.init import configure_parser, init_entrypoint
 

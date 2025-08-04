@@ -6,7 +6,7 @@ from typing import List
 
 from psenv.core.paths import PSENV_CONFIG_FILE_PATH
 
-from . import init, exec, get, inject, put
+from . import exec, get, init, inject, put
 
 COMMANDS = [init, get, put, exec, inject]
 

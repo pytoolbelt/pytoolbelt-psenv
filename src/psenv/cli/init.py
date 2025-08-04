@@ -1,6 +1,6 @@
-from argparse import Namespace, Action
-from pathlib import Path
+from argparse import Namespace
 from typing import Any
+
 import structlog
 
 from psenv.core import fileio

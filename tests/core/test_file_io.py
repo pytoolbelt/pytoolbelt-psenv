@@ -1,11 +1,10 @@
 import os
+from pathlib import Path
 
 import pytest
 
-from psenv.core.fileio import get_environment_variables, read_config, read_config_template
+from psenv.core.fileio import PSENV_CONFIG_FILE_PATH, DefaultEnvPaths, get_environment_variables, read_config, read_config_template
 from psenv.error_handling.exceptions import PsenvConfigError, PsenvConfigNotFoundError, PsenvInternalError
-from psenv.core.fileio import DefaultEnvPaths, PSENV_CONFIG_FILE_PATH
-from pathlib import Path
 
 
 def test_read_config_success(tmp_path):
