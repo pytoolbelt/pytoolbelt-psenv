@@ -10,7 +10,7 @@ This guide will help you get up and running with PSEnv to manage your AWS Parame
 
 ## Installation
 
-Install PSEnv using pip:
+Install psenv using pip:
 
 ```bash
 pip install psenv
@@ -21,10 +21,10 @@ pip install psenv
 1. Create a PSEnv configuration file:
 
    ```bash
-   psenv config init
+   psenv init
    ```
 
-   This will create a `psenv.yml` file in your current directory.
+   This will create a `psenv.yml` file in your current directory and set up the necessary environment directory structure.
 
 2. Edit the configuration file to match your AWS environment structure:
 

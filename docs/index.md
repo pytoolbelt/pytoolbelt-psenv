@@ -20,8 +20,6 @@ pip install psenv
 ## Quick Start
 
 ```bash
-# Initialize a new psenv configuration
-psenv config init
 
 # Get parameters from Parameter Store
 psenv get --env dev
