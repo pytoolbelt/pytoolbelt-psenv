@@ -65,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="07689f" data-md-color-accent="ff7e67">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,8 +92,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="PSEnv Documentation" class="md-header__button md-logo" aria-label="PSEnv Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../../assets/logo-noBgColor.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -199,8 +198,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="PSEnv Documentation" class="md-nav__button md-logo" aria-label="PSEnv Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../../assets/logo-noBgColor.png" alt="logo">
 
     </a>
     PSEnv Documentation
@@ -745,20 +743,20 @@
 </ul>
 <h2 id="file-structure">File Structure</h2>
 <p>A typical <code>psenv.yml</code> file has the following structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my-app</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">kms_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alias/aws/ssm</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.dev</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.test</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.prod</span>
-</code></pre></div>
+<pre><code class="language-yaml">envfile: .env
+root_path: /my-app
+kms_key: alias/aws/ssm
+environments:
+  - name: dev
+    account: &quot;123456789012&quot;
+    envfile: .env.dev
+  - name: test
+    account: &quot;123456789012&quot;
+    envfile: .env.test
+  - name: prod
+    account: &quot;987654321098&quot;
+    envfile: .env.prod
+</code></pre>
 <h2 id="configuration-options">Configuration Options</h2>
 <h3 id="top-level-options">Top-Level Options</h3>
 <table>
@@ -843,60 +841,60 @@
 </table>
 <h2 id="parameter-path-structure">Parameter Path Structure</h2>
 <p>By default, parameters are stored in Parameter Store using the following path structure:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{root_path}/{environment_name}/{parameter_name}
-</code></pre></div>
+<pre><code>{root_path}/{environment_name}/{parameter_name}
+</code></pre>
 <p>For example, with <code>root_path: /my-app</code> and environment <code>dev</code>, the parameter <code>DATABASE_URL</code> would be stored at:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/my-app/dev/DATABASE_URL
-</code></pre></div>
+<pre><code>/my-app/dev/DATABASE_URL
+</code></pre>
 <h2 id="example-configurations">Example Configurations</h2>
 <h3 id="basic-configuration">Basic Configuration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my-app</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-</code></pre></div>
+<pre><code class="language-yaml">envfile: .env
+root_path: /my-app
+environments:
+  - name: dev
+    account: &quot;123456789012&quot;
+  - name: prod
+    account: &quot;987654321098&quot;
+</code></pre>
 <h3 id="multi-environment-configuration-with-custom-files">Multi-Environment Configuration with Custom Files</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my-app</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.development</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.test</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stage</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;567890123456&quot;</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.staging</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.production</span>
-</code></pre></div>
+<pre><code class="language-yaml">envfile: .env
+root_path: /my-app
+environments:
+  - name: dev
+    account: &quot;123456789012&quot;
+    envfile: .env.development
+  - name: test
+    account: &quot;123456789012&quot;
+    envfile: .env.test
+  - name: stage
+    account: &quot;567890123456&quot;
+    envfile: .env.staging
+  - name: prod
+    account: &quot;987654321098&quot;
+    envfile: .env.production
+</code></pre>
 <h3 id="configuration-with-custom-kms-keys">Configuration with Custom KMS Keys</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my-app</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nt">kms_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alias/my-app-default-key</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="nt">kms_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alias/my-app-prod-key</span>
-</code></pre></div>
+<pre><code class="language-yaml">envfile: .env
+root_path: /my-app
+kms_key: alias/my-app-default-key
+environments:
+  - name: dev
+    account: &quot;123456789012&quot;
+  - name: prod
+    account: &quot;987654321098&quot;
+    kms_key: alias/my-app-prod-key
+</code></pre>
 <h3 id="configuration-with-custom-parameter-paths">Configuration with Custom Parameter Paths</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my-app</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">parameter_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/development/my-app</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">parameter_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/production/my-app</span>
-</code></pre></div>
+<pre><code class="language-yaml">envfile: .env
+root_path: /my-app
+environments:
+  - name: dev
+    account: &quot;123456789012&quot;
+    parameter_path: /development/my-app
+  - name: prod
+    account: &quot;987654321098&quot;
+    parameter_path: /production/my-app
+</code></pre>
 <h2 id="best-practices">Best Practices</h2>
 <ol>
 <li>
@@ -917,8 +915,8 @@
 </ol>
 <h2 id="creating-or-updating-the-configuration">Creating or Updating the Configuration</h2>
 <p>You can create a new configuration file using the init command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>psenv<span class="w"> </span>config<span class="w"> </span>init
-</code></pre></div>
+<pre><code class="language-bash">psenv config init
+</code></pre>
 <p>This will create a template <code>psenv.yml</code> file in your current directory that you can customize to your needs.</p>
 
 

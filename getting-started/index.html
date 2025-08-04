@@ -65,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="07689f" data-md-color-accent="ff7e67">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,8 +92,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="PSEnv Documentation" class="md-header__button md-logo" aria-label="PSEnv Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo-noBgColor.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -199,8 +198,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="PSEnv Documentation" class="md-nav__button md-logo" aria-label="PSEnv Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo-noBgColor.png" alt="logo">
 
     </a>
     PSEnv Documentation
@@ -640,44 +638,44 @@
 <li>AWS account with permissions to access Parameter Store</li>
 </ul>
 <h2 id="installation">Installation</h2>
-<p>Install PSEnv using pip:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>psenv
-</code></pre></div>
+<p>Install psenv using pip:</p>
+<pre><code class="language-bash">pip install psenv
+</code></pre>
 <h2 id="initial-setup">Initial Setup</h2>
 <ol>
 <li>Create a PSEnv configuration file:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>psenv<span class="w"> </span>config<span class="w"> </span>init
-</code></pre></div>
-<p>This will create a <code>psenv.yml</code> file in your current directory.</p>
+<p><code>bash
+   psenv init</code></p>
+<p>This will create a <code>psenv.yml</code> file in your current directory and set up the necessary environment directory structure.</p>
 <ol>
 <li>Edit the configuration file to match your AWS environment structure:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">root_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/your-app</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">environments</span><span class="p">:</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789012&quot;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.dev</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;987654321098&quot;</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">envfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env.prod</span>
-</code></pre></div>
+<p><code>yaml
+   envfile: .env
+   root_path: /your-app
+   environments:
+     - name: dev
+       account: "123456789012"
+       envfile: .env.dev
+     - name: prod
+       account: "987654321098"
+       envfile: .env.prod</code></p>
 <ol>
 <li>Make sure your AWS credentials are properly configured for accessing the accounts defined in your configuration.</li>
 </ol>
 <h2 id="basic-usage">Basic Usage</h2>
 <h3 id="pull-parameters-from-aws">Pull Parameters from AWS</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>psenv<span class="w"> </span>get<span class="w"> </span>--env<span class="w"> </span>dev
-</code></pre></div>
+<pre><code class="language-bash">psenv get --env dev
+</code></pre>
 <p>This will fetch parameters from the Parameter Store path specified in your configuration and save them to your <code>.env.dev</code> file.</p>
 <h3 id="push-parameters-to-aws">Push Parameters to AWS</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>psenv<span class="w"> </span>put<span class="w"> </span>--env<span class="w"> </span>dev<span class="w"> </span>--sync
-</code></pre></div>
+<pre><code class="language-bash">psenv put --env dev --sync
+</code></pre>
 <p>This will sync your local <code>.env.dev</code> file with the Parameter Store.</p>
 <h3 id="execute-commands-with-parameters">Execute Commands with Parameters</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>psenv<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--env<span class="w"> </span>dev<span class="w"> </span>--<span class="w"> </span>npm<span class="w"> </span>start
-</code></pre></div>
+<pre><code class="language-bash">psenv exec --env dev -- npm start
+</code></pre>
 <p>This will run the command <code>npm start</code> with environment variables loaded from Parameter Store.</p>
 <h2 id="next-steps">Next Steps</h2>
 <p>Check out the detailed documentation on:</p>
