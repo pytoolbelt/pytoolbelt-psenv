@@ -8,9 +8,13 @@ class Command(Popen):
         if command[0] == "--":
             command.pop(0)
 
+        current_env = os.environ.copy()
+        if env:
+            current_env.update(env)
+
         super().__init__(
             command,
-            env=env or os.environ.copy(),  # Use provided env or inherit from parent
+            env=current_env,  # Use provided env or inherit from parent
             stdout=None,  # None means inherit from parent process
             stderr=PIPE,  # Capture stderr for error checking
             text=True,  # Return strings instead of bytes

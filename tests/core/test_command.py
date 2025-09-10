@@ -1,3 +1,4 @@
+import os
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -28,11 +29,15 @@ def test_command_init_env_default(mock_popen_init):
 def test_command_init_env_custom(mock_popen_init):
     cmd = ["echo", "hello"]
     env = {"FOO": "BAR"}
-    c = Command(cmd, env=env)
-    assert c.env == env
+
+    current_env = os.environ.copy()
+    current_env.update(env)
+
+    c = Command(cmd, env=current_env)
+    assert c.env == current_env
     mock_popen_init.assert_called_once()
     args, kwargs = mock_popen_init.call_args
-    assert kwargs["env"] == env
+    assert kwargs["env"] == current_env
 
 
 @patch("psenv.core.command.Popen.__exit__", return_value=None)
