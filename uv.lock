@@ -697,7 +697,7 @@ wheels = [
 
 [[package]]
 name = "pytoolbelt-psenv"
-version = "0.20.1"
+version = "0.20.2"
 source = { editable = "." }
 dependencies = [
     { name = "boto3" },

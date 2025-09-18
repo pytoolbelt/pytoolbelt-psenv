@@ -8,8 +8,9 @@ theme:
   name: material
   logo: assets/logo-noBgColor.png
   palette:
-    primary: 07689f
-    accent: ff7e67
+    - scheme: default
+      primary: "#07689f"
+      accent: "#ff7e67"
   features:
     - navigation.instant
     - navigation.tracking

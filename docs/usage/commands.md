@@ -121,25 +121,28 @@ psenv inject
 psenv inject --prefix AWS_
 ```
 
-## Command: `init`
+## Command: `config`
 
-Initialize a psenv project by creating a configuration file and environment directory structure.
+Manage psenv configuration.
 
 ### Usage
 
 ```bash
-psenv init
+psenv config init [--force]
 ```
 
 ### Options
 
-No specific options for this command.
+- `--force`: Overwrite existing configuration file.
 
 ### Examples
 
 ```bash
-# Initialize a new psenv project
-psenv init
+# Initialize a new psenv.yml file
+psenv config init
+
+# Force overwrite an existing psenv.yml file
+psenv config init --force
 ```
 
 ## Best Practices
