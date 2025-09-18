@@ -60,10 +60,12 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="07689f" data-md-color-accent="ff7e67">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="#07689f" data-md-color-accent="#ff7e67">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -115,7 +117,19 @@
     </div>
     
       
+        <form class="md-header__option" data-md-component="palette">
+  
     
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="#07689f" data-md-color-accent="#ff7e67"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -549,13 +563,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-init" class="md-nav__link">
+  <a href="#command-config" class="md-nav__link">
     <span class="md-ellipsis">
-      Command: init
+      Command: config
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: init">
+    <nav class="md-nav" aria-label="Command: config">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -859,13 +873,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-init" class="md-nav__link">
+  <a href="#command-config" class="md-nav__link">
     <span class="md-ellipsis">
-      Command: init
+      Command: config
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: init">
+    <nav class="md-nav" aria-label="Command: config">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1016,16 +1030,21 @@ psenv inject
 # Inject only AWS_* environment variables
 psenv inject --prefix AWS_
 </code></pre>
-<h2 id="command-init">Command: <code>init</code></h2>
-<p>Initialize a psenv project by creating a configuration file and environment directory structure.</p>
+<h2 id="command-config">Command: <code>config</code></h2>
+<p>Manage psenv configuration.</p>
 <h3 id="usage_4">Usage</h3>
-<pre><code class="language-bash">psenv init
+<pre><code class="language-bash">psenv config init [--force]
 </code></pre>
 <h3 id="options_4">Options</h3>
-<p>No specific options for this command.</p>
+<ul>
+<li><code>--force</code>: Overwrite existing configuration file.</li>
+</ul>
 <h3 id="examples_4">Examples</h3>
-<pre><code class="language-bash"># Initialize a new psenv project
-psenv init
+<pre><code class="language-bash"># Initialize a new psenv.yml file
+psenv config init
+
+# Force overwrite an existing psenv.yml file
+psenv config init --force
 </code></pre>
 <h2 id="best-practices">Best Practices</h2>
 <p>PSEnv is designed with the following workflow in mind:</p>
