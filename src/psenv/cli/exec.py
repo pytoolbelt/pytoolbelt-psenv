@@ -24,5 +24,4 @@ def exec_command(cliargs: Namespace) -> None:
     env = ctx.ps_client.get_parameters()
 
     with Command(cliargs.command, env=env):
-        print(f"Executing command: {cliargs.command} in environment: {env}")
-        pass
+        print(f"Executing command: {cliargs.command} in environment: {cliargs.env}")
